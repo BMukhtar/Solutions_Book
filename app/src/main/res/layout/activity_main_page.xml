@@ -28,6 +28,7 @@
         android:layout_marginLeft="40dp"
         android:textColor="@color/white"
         android:id="@+id/textView" />
+    //asdfas
 
     <ImageView
         android:background="@drawable/categories1"
