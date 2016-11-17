@@ -36,6 +36,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.registr:
+                Intent in = new Intent(getBaseContext(),RegistrationPage.class);
+                startActivity(in);
             case R.id.sign:
                 String log = login.getText().toString();
                 String pass = password.getText().toString();
@@ -43,6 +46,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 cv.put("login","zhorik");
                 cv.put("password","123");
                 db.insert("users",null,cv);
+                cv.clear();
                 Cursor c = db.query("users", null, "login=? and password=?",new String[]{log,pass},null,null,null);
                 if(c.moveToFirst()){
                     long id = c.getLong(c.getColumnIndex("_id"));
@@ -55,6 +59,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     password.setText("");
                     Toast.makeText(getBaseContext(),"Incorrect login or password!",Toast.LENGTH_SHORT).show();
                 }
+
         }
     }
 }
