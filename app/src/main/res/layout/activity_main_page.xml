@@ -14,7 +14,7 @@
         android:background="@drawable/myaccount1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/my_account"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />
     <TextView
@@ -28,16 +28,7 @@
         android:layout_marginLeft="40dp"
         android:textColor="@color/white"
         android:id="@+id/textView" />
-    //asdfas
 
-    <ImageView
-        android:background="@drawable/categories1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/imageView3"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_alignLeft="@+id/imageView5"
-        android:layout_alignStart="@+id/imageView5" />
     <TextView
 
         android:layout_height="wrap_content"
@@ -53,11 +44,11 @@
         android:background="@drawable/mybooks1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/imageView4"
+        android:id="@+id/my_books"
         android:layout_marginTop="79dp"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_alignStart="@+id/imageView2" />
+        android:layout_below="@+id/my_account"
+        android:layout_alignLeft="@+id/my_account"
+        android:layout_alignStart="@+id/my_account" />
     <TextView
 
         android:layout_height="wrap_content"
@@ -74,10 +65,10 @@
         android:background="@drawable/mysolutions1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/imageView5"
-        android:layout_alignTop="@+id/imageView4"
-        android:layout_toRightOf="@+id/imageView4"
-        android:layout_toEndOf="@+id/imageView4"
+        android:id="@+id/my_solution"
+        android:layout_alignTop="@+id/my_books"
+        android:layout_toRightOf="@+id/my_books"
+        android:layout_toEndOf="@+id/my_books"
         android:layout_marginLeft="71dp"
         android:layout_marginStart="71dp" />
     <TextView
@@ -95,11 +86,11 @@
         android:background="@drawable/search1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/imageView6"
+        android:id="@+id/search_image"
         android:layout_marginTop="17dp"
         android:layout_below="@+id/textView3"
-        android:layout_toLeftOf="@+id/imageView5"
-        android:layout_toStartOf="@+id/imageView5" />
+        android:layout_toLeftOf="@+id/my_solution"
+        android:layout_toStartOf="@+id/my_solution" />
     <TextView
 
         android:layout_height="wrap_content"
@@ -116,10 +107,10 @@
         android:background="@drawable/exit1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/imageView7"
-        android:layout_alignBottom="@+id/imageView6"
-        android:layout_alignRight="@+id/imageView5"
-        android:layout_alignEnd="@+id/imageView5" />
+        android:id="@+id/exit_image"
+        android:layout_alignBottom="@+id/search_image"
+        android:layout_alignRight="@+id/my_solution"
+        android:layout_alignEnd="@+id/my_solution" />
     <TextView
 
         android:layout_height="wrap_content"
@@ -130,4 +121,13 @@
         android:layout_marginTop="390dp"
         android:layout_marginLeft="225dp"
         android:textColor="@color/white"/>
+
+    <ImageView
+        android:background="@drawable/categories1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/categories_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/my_solution"
+        android:layout_alignStart="@+id/my_solution" />
 </RelativeLayout>
