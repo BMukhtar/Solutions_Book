@@ -110,7 +110,8 @@
         android:id="@+id/exit_image"
         android:layout_alignBottom="@+id/search_image"
         android:layout_alignRight="@+id/my_solution"
-        android:layout_alignEnd="@+id/my_solution" />
+        android:layout_alignEnd="@+id/my_solution"
+        />
     <TextView
 
         android:layout_height="wrap_content"

@@ -1,5 +1,7 @@
 package mukhtar.exapple.com.solutions_book;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,7 @@ public class MainPage extends AppCompatActivity {
     ImageView my_solutions;
     ImageView search_image;
     ImageView exit_image;
+    SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,13 @@ public class MainPage extends AppCompatActivity {
         public void onClick(View v) {
             switch(v.getId()){
                 case R.id.my_account: break;
+                case R.id.exit_image:
+                    sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
+                    SharedPreferences.Editor ed = sharedPref.edit();
+                    ed.putString("username","");
+                    ed.commit();
+                    Intent i = new Intent(getBaseContext(),Login.class);
+                    startActivity(i);break;
             }
         }
     };

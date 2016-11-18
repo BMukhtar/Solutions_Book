@@ -2,6 +2,7 @@ package mukhtar.exapple.com.solutions_book;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,10 +18,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     SQLiteDatabase db;
     Button sign,registr;
     EditText login,password;
+    SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
+        String loginn = sharedPref.getString("username","");
+        String id = sharedPref.getString("id","");
+        if(loginn!=""){
+            Intent in = new Intent(this,MainPage.class);
+            in.putExtra("id",id);
+            in.putExtra("login",loginn);
+            startActivity(in);
+        }
+        else{
         helper = new DBHelper(this);
         db = helper.getWritableDatabase();
         sign = (Button) findViewById(R.id.sign);
@@ -28,9 +40,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         login = (EditText) findViewById(R.id.login);
         password = (EditText) findViewById(R.id.password);
 
+
+
         sign.setOnClickListener(this);
         registr.setOnClickListener(this);
 
+    }
     }
 
     @Override
@@ -39,27 +54,34 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             case R.id.registr:
                 Intent in = new Intent(getBaseContext(),RegistrationPage.class);
                 startActivity(in);
+                break;
             case R.id.sign:
                 String log = login.getText().toString();
                 String pass = password.getText().toString();
-                ContentValues cv = new ContentValues();
-                cv.put("login","zhorik");
-                cv.put("password","123");
-                db.insert("users",null,cv);
-                cv.clear();
+
                 Cursor c = db.query("users", null, "login=? and password=?",new String[]{log,pass},null,null,null);
                 if(c.moveToFirst()){
                     long id = c.getLong(c.getColumnIndex("_id"));
+
+                    sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
+                    SharedPreferences.Editor et = sharedPref.edit();
+                    et.putString("username",log);
+                    et.putString("id",id+"");
+                    et.commit();
+
                     Intent i = new Intent(getBaseContext(),MainPage.class);
                     i.putExtra("id",id);
                     i.putExtra("login",log);
                     startActivity(i);
+
                 }else{
                     login.setText("");
                     password.setText("");
                     Toast.makeText(getBaseContext(),"Incorrect login or password!",Toast.LENGTH_SHORT).show();
                 }
+                break;
 
         }
     }
+
 }
