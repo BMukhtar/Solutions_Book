@@ -34,19 +34,19 @@ public class RegistrationPage extends AppCompatActivity {
     }
     public void registrate(View v){
         if(etName.getText().toString().isEmpty()){
-            Toast.makeText(this,"Name is empty, please enter your name",Toast.LENGTH_SHORT);return;
+            Toast.makeText(this,"Name is empty, please enter your name",Toast.LENGTH_SHORT).show();return;
         }
         else if(etSurname.getText().toString().isEmpty()){
-            Toast.makeText(this,"Surname is empty, please enter your surname",Toast.LENGTH_SHORT);return;
+            Toast.makeText(this,"Surname is empty, please enter your surname",Toast.LENGTH_SHORT).show();return;
         }
         else if(etUsername.getText().toString().isEmpty()){
-            Toast.makeText(this,"Username can not be empty",Toast.LENGTH_SHORT);return;
+            Toast.makeText(this,"Username can not be empty",Toast.LENGTH_SHORT).show();return;
         }
         else if(etPassword.getText().toString().isEmpty()){
-            Toast.makeText(this,"password can not be empty",Toast.LENGTH_SHORT);return;
+            Toast.makeText(this,"password can not be empty",Toast.LENGTH_SHORT).show();return;
         }
         else if(!etPassword.getText().toString().equals(conPassword.getText().toString())||conPassword.getText().toString().isEmpty()){
-            Toast.makeText(this,"Please chek your password",Toast.LENGTH_SHORT);return;
+            Toast.makeText(this,"Please chek your password",Toast.LENGTH_SHORT).show();return;
         }
         ContentValues cv = new ContentValues();
         cv.put("surname",etSurname.getText().toString());
