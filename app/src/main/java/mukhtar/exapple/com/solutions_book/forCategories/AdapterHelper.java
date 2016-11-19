@@ -14,7 +14,7 @@ public class AdapterHelper {
     final String CHILD_ID = "childId";
     final String PARENT_ID = "childId";
     final String CHILD_PARENT_CATEGORY_NAME = "childName";
-
+    HashMap<String,Integer> cat_id = new HashMap<>();
     ArrayList<Map<String, String>> groupData = new ArrayList<>();
     ArrayList<Map<String, String>> childDataItem ;
     ArrayList<ArrayList<Map<String, String>>> childData = new ArrayList<>();
