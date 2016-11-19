@@ -2,6 +2,7 @@ package mukhtar.exapple.com.solutions_book;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 public class RegistrationPage extends AppCompatActivity {
     DBHelper dbHelper;
     SQLiteDatabase db;
-
+    SharedPreferences sharedPref;
     EditText etName;
     EditText etSurname;
     EditText etPassword;
@@ -48,6 +49,13 @@ public class RegistrationPage extends AppCompatActivity {
         else if(!etPassword.getText().toString().equals(conPassword.getText().toString())||conPassword.getText().toString().isEmpty()){
             Toast.makeText(this,"Please chek your password",Toast.LENGTH_SHORT).show();return;
         }
+        sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
+        SharedPreferences.Editor ed = sharedPref.edit();
+        ed.putString("username", etUsername.getText().toString());
+        ed.putString("password", etPassword.getText().toString());
+        ed.putString("name",etName.getText().toString());
+        ed.putString("surname",etSurname.getText().toString());
+        ed.commit();
         ContentValues cv = new ContentValues();
         cv.put("surname",etSurname.getText().toString());
         cv.put("name",etName.getText().toString());

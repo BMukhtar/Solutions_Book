@@ -18,7 +18,7 @@
         <activity android:name=".MainPage" />
         <activity android:name=".RegistrationPage" />
         <activity android:name=".MyAccount" />
-        <activity android:name=".forCategories.Categories"></activity>
+        <activity android:name=".forCategories.Categories" />
     </application>
 
 </manifest>

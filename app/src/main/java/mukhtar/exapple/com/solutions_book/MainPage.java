@@ -42,20 +42,15 @@ public class MainPage extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch(v.getId()){
-                case R.id.my_account: break;
-                case R.id.exit_image:
-                    sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
-                    SharedPreferences.Editor ed = sharedPref.edit();
-                    ed.putString("username","");
-                    ed.commit();
-                    Intent i = new Intent(getBaseContext(),Login.class);
-                    startActivity(i);
-                    finish();
+                case R.id.my_account:
+                    Intent intent = new Intent(getBaseContext(), MyAccount.class);
+                    startActivity(intent);
                     break;
+
                 case R.id.categories_image:
                     Intent cats = new Intent(getBaseContext(),Categories.class);
                     startActivity(cats);
-                    finish();
+
                     break;
             }
         }
