@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
-    DBHelper helper;
+    DBHelper dbHelper;
     SQLiteDatabase db;
     Button sign,registr;
     EditText login,password;
@@ -33,8 +33,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             startActivity(in);
         }
         else{
-        helper = new DBHelper(this);
-        db = helper.getWritableDatabase();
+        dbHelper = new DBHelper(this);
+        db = dbHelper.getWritableDatabase();
         sign = (Button) findViewById(R.id.sign);
         registr = (Button) findViewById(R.id.registr);
         login = (EditText) findViewById(R.id.login);
@@ -73,6 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     i.putExtra("id",id);
                     i.putExtra("login",log);
                     startActivity(i);
+                    finish();
 
                 }else{
                     login.setText("");
@@ -82,6 +83,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 break;
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 
 }

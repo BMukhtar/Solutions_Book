@@ -19,7 +19,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table users(_id integer primary key autoincrement," +
                 "login text,password text);");
         db.execSQL("create table information(_id integer primary key autoincrement,username text,name text, surname text );");
-
+        db.execSQL("create table categories(_id integer primary key autoincrement," +
+                "category_name text,"+
+                "parent_category_id int,"+
+                "parent_category_name text);");
     }
 
     @Override

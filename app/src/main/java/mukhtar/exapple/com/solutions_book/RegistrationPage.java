@@ -59,6 +59,13 @@ public class RegistrationPage extends AppCompatActivity {
         cv.clear();
         Intent i = new Intent(this,MainPage.class);
         startActivity(i);
+        finish();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 }

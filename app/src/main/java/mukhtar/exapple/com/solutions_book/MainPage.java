@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import mukhtar.exapple.com.solutions_book.forCategories.Categories;
+
 public class MainPage extends AppCompatActivity {
     ImageView my_account;
     ImageView categories;
@@ -47,7 +49,14 @@ public class MainPage extends AppCompatActivity {
                     ed.putString("username","");
                     ed.commit();
                     Intent i = new Intent(getBaseContext(),Login.class);
-                    startActivity(i);break;
+                    startActivity(i);
+                    finish();
+                    break;
+                case R.id.categories_image:
+                    Intent cats = new Intent(getBaseContext(),Categories.class);
+                    startActivity(cats);
+                    finish();
+                    break;
             }
         }
     };
