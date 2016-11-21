@@ -15,6 +15,7 @@ public class Categories extends AppCompatActivity {
 
         ExpandableListView lv = (ExpandableListView) findViewById(R.id.elv_for_categories);
         SimpleExpandableListAdapter adapter = (new AdapterHelper(this)).getAdapter();
+        if(adapter!=null)
         lv.setAdapter(adapter);
 
     }

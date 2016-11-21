@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import junit.framework.Test;
+
 import mukhtar.exapple.com.solutions_book.forCategories.Categories;
 
 public class MainPage extends AppCompatActivity {
@@ -50,6 +52,11 @@ public class MainPage extends AppCompatActivity {
                 case R.id.categories_image:
                     Intent cats = new Intent(getBaseContext(),Categories.class);
                     startActivity(cats);
+
+                    break;
+                case R.id.search_image:
+                    Intent test = new Intent(getBaseContext(),TestActivity.class);
+                    startActivity(test);
 
                     break;
             }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mukhtar.exapple.com.solutions_book">
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,7 @@
         <activity android:name=".RegistrationPage" />
         <activity android:name=".MyAccount" />
         <activity android:name=".forCategories.Categories" />
+        <activity android:name=".TestActivity"></activity>
     </application>
 
 </manifest>
