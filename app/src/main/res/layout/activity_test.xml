@@ -10,22 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mukhtar.exapple.com.solutions_book.TestActivity">
 
-    <Button
-        android:text="show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/add_cat"
-        android:layout_toRightOf="@+id/add_cat"
-        android:layout_toEndOf="@+id/add_cat"
-        android:layout_marginLeft="47dp"
-        android:layout_marginStart="47dp"
-        android:id="@+id/show_cat" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="catName groupId groupName"
         android:ems="10"
         android:id="@+id/editText" />
 
@@ -51,5 +40,25 @@
         android:layout_alignLeft="@+id/add_cat"
         android:layout_alignStart="@+id/add_cat"
         android:layout_marginTop="23dp" />
+
+    <Button
+        android:text="show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/show_cat"
+        android:layout_alignBaseline="@+id/add_cat"
+        android:layout_alignBottom="@+id/add_cat"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/show_cat"
+        android:layout_toRightOf="@+id/show_cat"
+        android:layout_toEndOf="@+id/show_cat"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/clear_categories" />
 
 </RelativeLayout>

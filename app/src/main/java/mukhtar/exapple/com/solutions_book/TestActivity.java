@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 public class TestActivity extends AppCompatActivity implements View.OnClickListener{
     Button add;
     Button show;
+    Button clear;
     TextView result;
     EditText ed;
     JSONObject res;
@@ -26,6 +27,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_test);
         add = (Button) findViewById(R.id.add_cat);
         show =(Button) findViewById(R.id.show_cat);
+        clear = (Button) findViewById(R.id.clear_categories);
+        clear.setOnClickListener(this);
         add.setOnClickListener(this);
         show.setOnClickListener(this);
         ed = (EditText) findViewById(R.id.editText);
@@ -38,11 +41,13 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_cat:
-                String catName = ed.getText().toString();
-                int id = Integer.parseInt(catName.split(" ")[1]);
-                Log.d("mylogs",id+"");
+                String line = ed.getText().toString();
+                int id = Integer.parseInt(line.split(" ")[1]);
+                String pcatName = line.split(" ")[2];
+                String catName = line.split(" ")[0];
+
                 String url = "https://arcane-peak-68343.herokuapp.com/for_query.php";
-                String query = "INSERT INTO categories VALUES (DEFAULT,'"+catName+"',"+id+",'Math');";
+                String query = "INSERT INTO categories VALUES (DEFAULT,'"+catName+"',"+id+",'"+pcatName+"');";
                 String method = "POST";
                 DatabaseInteraction add = new DatabaseInteraction(this);
                 add.execute(url,method,query);
@@ -73,13 +78,28 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         text+=((JSONArray)args.get(i)).getString(2);
                         text+=((JSONArray)args.get(i)).getString(3)+"\n";
                     }
-                    Log.d("mylogs",res.toString()+o);
                     result.setText(text);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.clear_categories:
+                String url2 = "https://arcane-peak-68343.herokuapp.com/for_query.php";
+                String query2 = "DELETE FROM categories;";
+                String method2 = "POST";
+                DatabaseInteraction add2 = new DatabaseInteraction(this);
+                add2.execute(url2,method2,query2);
+                try{
+                    res = add2.get();
+                    int o = res.getInt("success");
+                    Log.d("mylogs",o+" - success");
+
+                }catch (Exception e){
+                    Log.d("mylogs","delete canceled");
+                }
+
                 break;
         }
     }

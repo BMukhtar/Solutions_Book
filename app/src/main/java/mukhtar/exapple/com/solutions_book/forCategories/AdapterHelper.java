@@ -27,20 +27,15 @@ public class AdapterHelper {
     ArrayList<Map<String, String>> childDataItem = new ArrayList<>();
     ArrayList<ArrayList<Map<String, String>>> childData = new ArrayList<>();
     ArrayList <String> counting_groups = new ArrayList<>();
-    Map<String, String> m;
 
     SimpleExpandableListAdapter adapter = null;
     Context ctx;
 
     //Methods
     SimpleExpandableListAdapter getAdapter() {
-        HashMap <String,String[]> group_categories = new HashMap<>();
-        group_categories.put("Math",new String[]{"Discrete Mathematics","Mathematical Analysis"});
-        group_categories.put("Physics",new String[]{"Electricity","Magnetizm","Mechanics"});
-        group_categories.put("Programming",new String[]{"Java","Linux","Python","C++"});
 
         String url1 = "https://arcane-peak-68343.herokuapp.com/for_result.php";
-        String query1 = "SELECT * FROM categories ORDER BY group_category_id;";
+        String query1 = "SELECT * FROM categories;";
         String method1 = "POST";
         DatabaseInteraction select = new DatabaseInteraction(ctx);
         select.execute(url1,method1,query1);
@@ -81,8 +76,8 @@ public class AdapterHelper {
                 }
                 childData.add(childDataItem);
 
-                String groupFrom[] = new String[]{GROUP_ID,GROUP_CATEGORY_NAME};
-                int groupTo[] = new int[]{R.id.ID,R.id.name_of_category};
+                String groupFrom[] = new String[]{GROUP_CATEGORY_NAME};
+                int groupTo[] = new int[]{R.id.name_of_category};
                 String childFrom[] = new String[]{CHILD_ID,CHILD_CATEGORY_NAME};
                 int childTo[] = new int[]{R.id.ID,R.id.name_of_category};
                 adapter = new SimpleExpandableListAdapter(

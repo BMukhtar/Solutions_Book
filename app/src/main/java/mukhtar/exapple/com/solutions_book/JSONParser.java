@@ -45,6 +45,7 @@ public class JSONParser {
             }
 
             String finalJson = buffer.toString();
+            Log.d("mylogs",finalJson);
             jsonObject = new JSONObject(finalJson);
 
         } catch (IOException e) {
