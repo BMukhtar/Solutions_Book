@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by zholdasss on 15.11.16.
- */
 public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
@@ -17,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users(_id integer primary key autoincrement," +
-                "login text,password text);");
+                "login text,pass text);");
         db.execSQL("create table information(_id integer primary key autoincrement,username text,name text, surname text );");
         db.execSQL("create table categories(_id integer primary key autoincrement," +
                 "category_name text,"+

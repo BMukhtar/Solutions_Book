@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Solutions_Book</string>
+    <string name="radio_search_book_by_name">By name</string>
+    <string name="radio_search_book_by_author">By author</string>
+    <string name="edittext_search_book_hint">Type here</string>
+    <string name="button_search">Search</string>
+
+
+
 </resources>

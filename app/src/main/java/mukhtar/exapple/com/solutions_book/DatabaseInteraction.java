@@ -16,7 +16,6 @@ public class DatabaseInteraction extends AsyncTask<Object,Void,JSONObject> {
     String url;
     String method;
     String query;
-    ProgressDialog pDialog;
     public DatabaseInteraction(Context ctx){
         this.ctx = ctx;
     }
@@ -24,12 +23,6 @@ public class DatabaseInteraction extends AsyncTask<Object,Void,JSONObject> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pDialog = new ProgressDialog(ctx);
-        pDialog.setMessage("Connecting with server...");
-        pDialog.setIndeterminate(false);
-        pDialog.setCancelable(false);
-        pDialog.show();
-
     }
 
 
@@ -45,7 +38,7 @@ public class DatabaseInteraction extends AsyncTask<Object,Void,JSONObject> {
 
     @Override
     protected void onPostExecute(JSONObject j) {
-        pDialog.dismiss();
+
         super.onPostExecute(j);
     }
 }
