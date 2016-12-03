@@ -41,7 +41,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_cat:
-                String line = ed.getText().toString();
+                /*String line = ed.getText().toString();
                 int id = Integer.parseInt(line.split(" ")[1]);
                 String pcatName = line.split(" ")[2];
                 String catName = line.split(" ")[0];
@@ -58,11 +58,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 break;
             case R.id.show_cat:
-                String url1 = "https://arcane-peak-68343.herokuapp.com/for_result.php";
+                /*String url1 = "https://arcane-peak-68343.herokuapp.com/for_result.php";
                 String query1 = "SELECT * FROM categories;";
                 String method1 = "POST";
                 DatabaseInteraction add1 = new DatabaseInteraction(this);
@@ -83,10 +83,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
                 break;
             case R.id.clear_categories:
-                String url2 = "https://arcane-peak-68343.herokuapp.com/for_query.php";
+                /*String url2 = "https://arcane-peak-68343.herokuapp.com/for_query.php";
                 String query2 = "DELETE FROM categories;";
                 String method2 = "POST";
                 DatabaseInteraction add2 = new DatabaseInteraction(this);
@@ -98,7 +98,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                 }catch (Exception e){
                     Log.d("mylogs","delete canceled");
-                }
+                }*/
 
                 break;
         }
