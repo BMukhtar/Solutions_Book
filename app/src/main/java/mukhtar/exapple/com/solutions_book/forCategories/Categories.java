@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,9 @@ public class Categories extends AppCompatActivity {
         show.setOnClickListener(temporary);
         ed = (EditText) addView.findViewById(R.id.editText);
         result = (TextView) addView.findViewById(R.id.result_of_query);
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.activity_categories);
+        ll.addView(addView,0);
 
 
 
