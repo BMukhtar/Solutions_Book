@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
+    tools:context=".Login">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Registration"
+        android:id="@+id/registr"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/buttonshape"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:background="@drawable/emblema"
+
+        android:layout_width="400dp"
+        android:layout_height="350dp"
+        android:layout_above="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="116dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Sign in"
+        android:id="@+id/sign"
+        android:padding="15dp"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/white"
+
+        android:layout_above="@+id/registr"
+        android:layout_alignLeft="@+id/registr"
+        android:layout_alignStart="@+id/registr" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login"
+        android:hint="Username"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/password"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:id="@+id/password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+
+        android:layout_marginBottom="41dp"
+        android:layout_above="@+id/sign"
+        android:layout_alignRight="@+id/login"
+        android:layout_alignEnd="@+id/login" />
+</RelativeLayout>
+
