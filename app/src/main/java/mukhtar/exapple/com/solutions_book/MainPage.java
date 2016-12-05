@@ -55,8 +55,8 @@ public class MainPage extends AppCompatActivity {
 
                     break;
                 case R.id.search_image:
-                    Intent test = new Intent(getBaseContext(),TestActivity.class);
-                    startActivity(test);
+//                    Intent test = new Intent(getBaseContext(),TestActivity.class);
+//                    startActivity(test);
 
                     break;
             }

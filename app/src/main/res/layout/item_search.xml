@@ -23,7 +23,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="18dp"
-        android:id="@+id/radio_book_by">
+        android:id="@+id/radio_group_by">
         <RadioButton
             android:text="@string/radio_search_book_by_name"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_search_books"
-        android:layout_alignTop="@+id/radio_book_by"
+        android:layout_alignTop="@+id/radio_group_by"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"

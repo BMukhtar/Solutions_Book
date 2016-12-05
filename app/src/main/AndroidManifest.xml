@@ -21,7 +21,6 @@
         <activity android:name=".RegistrationPage" />
         <activity android:name=".MyAccount" />
         <activity android:name=".forCategories.Categories" />
-        <activity android:name=".TestActivity" />
         <activity android:name=".BooksAppereance.BooksResult" />
         <activity android:name=".BooksAppereance.Book"></activity>
     </application>

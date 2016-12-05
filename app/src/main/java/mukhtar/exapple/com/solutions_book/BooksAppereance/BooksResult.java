@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.zip.Inflater;
 
@@ -18,8 +20,8 @@ import mukhtar.exapple.com.solutions_book.R;
 public class BooksResult extends AppCompatActivity {
     EditText search;
     Button button_search;
-    RadioButton by_name;
-    RadioButton by_author;
+    RadioGroup rg;
+    String radioResult = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,22 @@ public class BooksResult extends AppCompatActivity {
             View view = inflater.inflate(R.layout.item_search, null, false);
             search = (EditText) view.findViewById(R.id.edittext_search_book);
             button_search = (Button) view.findViewById(R.id.button_search_books);
-            by_name = (RadioButton) findViewById(R.id.radio_book_by_name);
-            by_author = (RadioButton) findViewById(R.id.radio_book_by_author);
+            rg = (RadioGroup) findViewById(R.id.radio_group_by);
+            rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+            {
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    switch(rg.getCheckedRadioButtonId()){
+                        case R.id.radio_book_by_name:
+                            radioResult = "name";
+                            break;
+                        case R.id.radio_book_by_author:
+                            radioResult = "author";
+                            break;
+                    }
+                    Toast.makeText(getBaseContext(), "changed to by "+radioResult, Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }else{
 
