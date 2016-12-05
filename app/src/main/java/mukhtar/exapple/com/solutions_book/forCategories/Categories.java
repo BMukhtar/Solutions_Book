@@ -38,7 +38,6 @@ public class Categories extends AppCompatActivity {
     Button add;
     Button show;
     Button clear;
-    TextView result;
     EditText ed;
 
     //for main part:
@@ -65,7 +64,7 @@ public class Categories extends AppCompatActivity {
         // temporary part:
 
         LayoutInflater layoutInflater = this.getLayoutInflater();
-        View addView  = layoutInflater.inflate(R.layout.activity_test,null,false);
+        View addView  = layoutInflater.inflate(R.layout.item_add_category,null,false);
         add = (Button) addView.findViewById(R.id.add_cat);
         show =(Button) addView.findViewById(R.id.show_cat);
         clear = (Button) addView.findViewById(R.id.clear_categories);
@@ -73,7 +72,6 @@ public class Categories extends AppCompatActivity {
         add.setOnClickListener(temporary);
         show.setOnClickListener(temporary);
         ed = (EditText) addView.findViewById(R.id.editText);
-        result = (TextView) addView.findViewById(R.id.result_of_query);
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.activity_categories);
         ll.addView(addView,0);

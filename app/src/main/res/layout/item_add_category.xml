@@ -28,17 +28,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="Result"
-        android:textSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/result_of_query"
-        android:layout_below="@+id/add_cat"
-        android:layout_alignLeft="@+id/add_cat"
-        android:layout_alignStart="@+id/add_cat"
-        android:layout_marginTop="23dp" />
-
     <Button
         android:text="show"
         android:layout_width="wrap_content"

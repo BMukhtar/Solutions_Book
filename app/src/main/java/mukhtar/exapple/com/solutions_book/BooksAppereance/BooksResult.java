@@ -1,6 +1,5 @@
 package mukhtar.exapple.com.solutions_book.BooksAppereance;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,12 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import java.util.zip.Inflater;
 
 import mukhtar.exapple.com.solutions_book.R;
 

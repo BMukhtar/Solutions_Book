@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import junit.framework.Test;
 
+import mukhtar.exapple.com.solutions_book.BooksAppereance.BooksResult;
 import mukhtar.exapple.com.solutions_book.forCategories.Categories;
 
 public class MainPage extends AppCompatActivity {
@@ -55,8 +56,9 @@ public class MainPage extends AppCompatActivity {
 
                     break;
                 case R.id.search_image:
-//                    Intent test = new Intent(getBaseContext(),TestActivity.class);
-//                    startActivity(test);
+                    Intent test = new Intent(getBaseContext(), BooksResult.class);
+                    test.putExtra("id_of_category","search");
+                    startActivity(test);
 
                     break;
             }
