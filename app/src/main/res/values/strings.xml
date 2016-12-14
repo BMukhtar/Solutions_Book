@@ -1,12 +1,27 @@
 <resources>
 
+    //activity MainPage
     <string name="categories">Categories</string>
     <string name="app_name">Solutions_Book</string>
     <string name="radio_search_book_by_name">By name</string>
     <string name="radio_search_book_by_author">By author</string>
     <string name="edittext_search_book_hint">Type here</string>
     <string name="button_search">Search</string>
+
+    //General
     <string name="volley_error">Some errors occurs please try later</string>
+
+    //activity MyBooks
+    <string name="button_add_new_book">Add new book</string>
+    <string name="button_choose_my_books">My books</string>
+    <string name="button_choose_liked_books">Liked books</string>
+
+    //fragment AddBook
+    <string name="text_view_welcome_to_add_book">Edit descriptions of your book</string>
+    <string name="edittext_name_of_new_book">Enter name</string>
+    <string name="edittext_author_of_new_book">Enter author</string>
+    <string name="edittext_link_of_new_boook">Enter link</string>
+
 
 
 </resources>

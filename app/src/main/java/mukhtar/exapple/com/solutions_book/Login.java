@@ -28,9 +28,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         String id = sharedPref.getString("id","");
         if(loginn!=""){
             Intent in = new Intent(this,MainPage.class);
-            in.putExtra("id",id);
-            in.putExtra("login",loginn);
             startActivity(in);
+            finish();
         }
         else{
         dbHelper = new DBHelper(this);

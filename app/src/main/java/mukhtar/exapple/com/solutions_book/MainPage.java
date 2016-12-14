@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import junit.framework.Test;
 
 import mukhtar.exapple.com.solutions_book.BooksAppereance.BooksResult;
+import mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks;
 import mukhtar.exapple.com.solutions_book.forCategories.Categories;
 
 public class MainPage extends AppCompatActivity {
@@ -53,13 +54,17 @@ public class MainPage extends AppCompatActivity {
                 case R.id.categories_image:
                     Intent cats = new Intent(getBaseContext(),Categories.class);
                     startActivity(cats);
-
                     break;
+
                 case R.id.search_image:
                     Intent test = new Intent(getBaseContext(), BooksResult.class);
                     test.putExtra("id_of_category","search");
                     startActivity(test);
+                    break;
 
+                case R.id.my_books:
+                    Intent my_books = new Intent(getBaseContext(), MyBooks.class);
+                    startActivity(my_books);
                     break;
             }
         }

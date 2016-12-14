@@ -22,7 +22,8 @@
         <activity android:name=".MyAccount" />
         <activity android:name=".forCategories.Categories" />
         <activity android:name=".BooksAppereance.BooksResult" />
-        <activity android:name=".BooksAppereance.Book"></activity>
+        <activity android:name=".BooksAppereance.Book" />
+        <activity android:name=".BooksAppereance.MyBooks"></activity>
     </application>
 
 </manifest>
