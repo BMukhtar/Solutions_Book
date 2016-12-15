@@ -26,14 +26,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
         String loginn = sharedPref.getString("username","");
         String id = sharedPref.getString("id","");
+        dbHelper = new DBHelper(this);
+        db = dbHelper.getWritableDatabase();
         if(loginn!=""){
             Intent in = new Intent(this,MainPage.class);
             startActivity(in);
             finish();
         }
         else{
-        dbHelper = new DBHelper(this);
-        db = dbHelper.getWritableDatabase();
+
         sign = (Button) findViewById(R.id.sign);
         registr = (Button) findViewById(R.id.registr);
         login = (EditText) findViewById(R.id.login);

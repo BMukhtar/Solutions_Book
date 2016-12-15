@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +39,8 @@ public class MyBooks extends AppCompatActivity {
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 fTrans = getFragmentManager().beginTransaction();
-
-                switch(rg.getCheckedRadioButtonId()){
+                Log.d("mylogs",checkedId+"  on checked change listener");
+                switch(checkedId){
                     case R.id.radio_button_add_new_book:
                         fragment_add_book = new AddBook();
                         fTrans.replace(id_of_frame_layout, fragment_add_book);
@@ -53,7 +54,7 @@ public class MyBooks extends AppCompatActivity {
                         fTrans.replace(id_of_frame_layout, fragment_show_liked_books);
                         break;
                 }
-                Toast.makeText(getBaseContext(), "option changed ", Toast.LENGTH_SHORT).show();
+                fTrans.commit();
             }
         });
         rg.check(R.id.radio_button_choose_my_books);

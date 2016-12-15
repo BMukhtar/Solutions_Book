@@ -4,14 +4,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import junit.framework.Test;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import mukhtar.exapple.com.solutions_book.BooksAppereance.BooksResult;
 import mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks;
 import mukhtar.exapple.com.solutions_book.forCategories.Categories;
+
 
 public class MainPage extends AppCompatActivity {
     ImageView my_account;
@@ -26,6 +39,8 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        sharedPref = getSharedPreferences("Additional",MODE_PRIVATE);
+
         my_account = (ImageView) findViewById(R.id.my_account);
         categories = (ImageView) findViewById(R.id.categories_image);
         my_books = (ImageView) findViewById(R.id.my_books);
@@ -39,6 +54,10 @@ public class MainPage extends AppCompatActivity {
         my_solutions.setOnClickListener(for_main_page);
         search_image.setOnClickListener(for_main_page);
         exit_image.setOnClickListener(for_main_page);
+
+        setCategoriesJsonOnSharedReferences();
+
+        //getting categories
 
     }
 
@@ -69,4 +88,44 @@ public class MainPage extends AppCompatActivity {
             }
         }
     };
+
+    public void setCategoriesJsonOnSharedReferences(){
+        String url1 = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
+        final String query1 = "SELECT * FROM categories;";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request =
+                new StringRequest(
+                        Request.Method.POST,
+                        url1,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                SharedPreferences.Editor ed = sharedPref.edit();
+                                ed.putString("categories",response);
+                                ed.commit();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Toast.makeText(getBaseContext(),"Can not load categories",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap();
+                        map.put("query", query1);
+                        return map;
+                    }
+                };
+        request.setTag("POST");
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        queue.add(request);
+
+    }
 }
