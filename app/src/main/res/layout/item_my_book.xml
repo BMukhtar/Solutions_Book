@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:text="name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="19dp"
+        android:id="@+id/textview_name_of_book"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:text="author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textview_author_of_book"
+        android:textSize="20sp"
+        android:layout_below="@+id/textview_name_of_book"
+        android:layout_alignLeft="@+id/textview_name_of_book"
+        android:layout_alignStart="@+id/textview_name_of_book" />
+
+    <TextView
+        android:text="link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/textview_link_of_book"
+        android:textSize="20sp"
+        android:layout_below="@+id/textview_author_of_book"
+        android:layout_alignLeft="@+id/textview_author_of_book"
+        android:layout_alignStart="@+id/textview_author_of_book" />
+</RelativeLayout>
