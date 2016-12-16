@@ -32,13 +32,6 @@
         android:id="@+id/edittext_change_book_link"
         android:maxLines="1"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/edittext_change_book_chapter_count"
-        android:hint="@string/edittext_change_book_chapter_count"/>
 
     <Spinner
         android:layout_width="match_parent"
