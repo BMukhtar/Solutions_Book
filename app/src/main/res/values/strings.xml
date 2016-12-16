@@ -22,5 +22,15 @@
     <string name="edittext_author_of_new_book">Enter author</string>
     <string name="edittext_link_of_new_boook">Enter link</string>
 
+    //fragment my books
+    <string name="textview_hint_my_books_fragment">You can edit your books</string>
+
+    //fragment edit_book
+    <string name="button_change_book">Change descriptions</string>
+    <string name="edittext_change_book_chapter_count">Change chapter count</string>
+
+
+
+
 
 </resources>
