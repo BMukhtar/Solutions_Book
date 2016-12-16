@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimary"
+    android:layout_gravity="center"
+    android:id="@+id/lin_lay"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="126dp"
+        android:layout_height="142dp"
+        android:id="@+id/logo"
+        android:background="@drawable/s"
+        android:layout_marginLeft="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_x="72dp"
+        android:layout_y="120dp" />
+
+    <ImageView
+        android:layout_width="126dp"
+        android:layout_height="142dp"
+        android:id="@+id/logo2"
+        android:background="@drawable/b"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_x="171dp"
+        android:layout_y="120dp"
+        />
+
+    <ImageView
+        android:text="Welcom to Solutions Book"
+        android:layout_width="224dp"
+        android:layout_height="120dp"
+        android:id="@+id/textView2"
+        android:src="@drawable/text"
+        android:layout_below="@+id/logo"
+        android:layout_alignRight="@+id/logo"
+        android:layout_alignEnd="@+id/logo"
+        android:layout_x="83dp"
+        android:layout_y="280dp"
+        />
+
+
+</AbsoluteLayout>

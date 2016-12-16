@@ -13,15 +13,16 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Registration"
+        android:text="@string/signup"
         android:id="@+id/registr"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/buttonshape"
+        android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:padding="15dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
+        android:textColorHint="@color/wh"
 
         />
 
@@ -38,7 +39,7 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Sign in"
+        android:text="@string/login"
         android:id="@+id/sign"
         android:padding="15dp"
         android:background="@drawable/buttonshape"
@@ -51,8 +52,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:id="@+id/login"
-        android:hint="Username"
+        android:hint="@string/username"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:layout_marginBottom="32dp"
@@ -62,14 +64,14 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
+        android:textAlignment="center"
         android:id="@+id/password"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
 
         android:layout_marginBottom="41dp"
         android:layout_above="@+id/sign"
-        android:layout_alignRight="@+id/login"
-        android:layout_alignEnd="@+id/login" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 

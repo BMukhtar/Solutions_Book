@@ -1,5 +1,17 @@
 <resources>
 
+    //Login Page
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
+    <string name="password">Password</string>
+    <string name="username">Login</string>
+
+    //Registration Page
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="confpass">Confirm Password</string>
+
+
     //activity MainPage
     <string name="categories">Categories</string>
     <string name="app_name">Solutions_Book</string>

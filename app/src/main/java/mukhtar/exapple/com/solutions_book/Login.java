@@ -34,7 +34,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             finish();
         }
         else{
-
         sign = (Button) findViewById(R.id.sign);
         registr = (Button) findViewById(R.id.registr);
         login = (EditText) findViewById(R.id.login);
