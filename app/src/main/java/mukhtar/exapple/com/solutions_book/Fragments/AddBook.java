@@ -100,7 +100,7 @@ public class AddBook extends Fragment {
         String book_author = author_of_new_book.getText().toString();
         String book_link = link_of_new_book.getText().toString();
 
-        final String query = "INSERT INTO books values()";
+        final String query = "INSERT INTO books values('"+book_name+"','"+book_author+"','"+book_link+"')";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request =
                 new StringRequest(

@@ -57,7 +57,7 @@ public class ShowMyBooks extends Fragment {
         AdapterView.AdapterContextMenuInfo ad=(AdapterView.AdapterContextMenuInfo)menuInfo;
         id_of_selected_menu=(String) ((HashMap)lv.getItemAtPosition(ad.position)).get("id");
 
-        menu.add(0, MENU_EDIT, 0, "Update");
+        menu.add(0, MENU_EDIT, 0, "Edit");
         menu.add(0, MENU_DELETE, 0, "Delete");
 
     }
