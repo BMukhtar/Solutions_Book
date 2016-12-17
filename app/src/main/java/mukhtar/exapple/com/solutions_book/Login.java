@@ -13,6 +13,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Login extends AppCompatActivity implements View.OnClickListener{
     DBHelper dbHelper;
     SQLiteDatabase db;
@@ -34,17 +49,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             finish();
         }
         else{
-        sign = (Button) findViewById(R.id.sign);
-        registr = (Button) findViewById(R.id.registr);
-        login = (EditText) findViewById(R.id.login);
-        password = (EditText) findViewById(R.id.password);
+            sign = (Button) findViewById(R.id.sign);
+            registr = (Button) findViewById(R.id.registr);
+            login = (EditText) findViewById(R.id.login);
+            password = (EditText) findViewById(R.id.password);
 
 
 
-        sign.setOnClickListener(this);
-        registr.setOnClickListener(this);
+            sign.setOnClickListener(this);
+            registr.setOnClickListener(this);
 
-    }
+        }
     }
 
     @Override
@@ -55,30 +70,63 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 startActivity(in);
                 break;
             case R.id.sign:
-                String log = login.getText().toString();
-                String pass = password.getText().toString();
+                final String log = login.getText().toString();
+                final String pass = password.getText().toString();
+                RequestQueue queue = Volley.newRequestQueue(this);
+                StringRequest request =
+                        new StringRequest(
+                                Request.Method.POST,
+                                "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php",
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response){
+                                        try {
+                                            JSONObject res = new JSONObject(response);
+                                            JSONArray args = res.getJSONArray("products");
+                                            String logS = "";
+                                            String passS="";
+                                            for (int i = 0; i < args.length(); i++) {
+                                                logS = ((JSONArray) args.get(i)).getString(0);
+                                                passS = ((JSONArray) args.get(i)).getString(1);
+                                            }
 
-                Cursor c = db.query("users", null, "login=? and password=?",new String[]{log,pass},null,null,null);
-                if(c.moveToFirst()){
-                    long id = c.getLong(c.getColumnIndex("_id"));
+                                            if(log.equals(logS) && pass.equals(passS)){
+                                                sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
+                                                SharedPreferences.Editor et = sharedPref.edit();
+                                                et.putString("username",log);
+                                                et.commit();
 
-                    sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
-                    SharedPreferences.Editor et = sharedPref.edit();
-                    et.putString("username",log);
-                    et.putString("id",id+"");
-                    et.commit();
+                                                Intent i = new Intent(getBaseContext(),MainPage.class);
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                            else{
+                                                Toast.makeText(getBaseContext(),"Incorrect login or password",Toast.LENGTH_SHORT).show();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
 
-                    Intent i = new Intent(getBaseContext(),MainPage.class);
-                    i.putExtra("id",id);
-                    i.putExtra("login",log);
-                    startActivity(i);
-                    finish();
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
 
-                }else{
-                    login.setText("");
-                    password.setText("");
-                    Toast.makeText(getBaseContext(),"Incorrect login or password!",Toast.LENGTH_SHORT).show();
-                }
+                            }
+                        }
+                        ){
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String, String> map = new HashMap();
+                                map.put("query", "SELECT username, password FROM users WHERE name='"+log+"'");
+
+
+                                return map;
+                            }
+                        };
+                request.setTag("POST");
+                queue.add(request);
+
                 break;
 
         }
@@ -89,5 +137,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         dbHelper.close();
         super.onDestroy();
     }
+
 
 }
