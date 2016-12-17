@@ -1,5 +1,6 @@
 package mukhtar.exapple.com.solutions_book;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,10 +35,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     Button sign,registr;
     EditText login,password;
     SharedPreferences sharedPref;
+    static Activity a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        a = this;
         sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
         String loginn = sharedPref.getString("username","");
         String id = sharedPref.getString("id","");

@@ -43,6 +43,8 @@ public class AddBook extends Fragment {
     EditText link_of_new_book;
     Spinner spinner_categories_data;
     SharedPreferences sPref;
+    SharedPreferences user_data;
+    int idOfUser;
     int id_of_category;
     Button add_book;
     String [] [] dataOfCategories;
@@ -57,7 +59,7 @@ public class AddBook extends Fragment {
         add_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                volleyQueue();
             }
         });
         name_of_new_book = (EditText) view.findViewById(R.id.edittext_book_name);
@@ -67,6 +69,12 @@ public class AddBook extends Fragment {
 
         sPref = getActivity().getSharedPreferences("Additional", Context.MODE_PRIVATE);
         String response = sPref.getString("categories","no");
+        user_data = getActivity().getSharedPreferences("Username",Context.MODE_PRIVATE);
+
+        //May occur errors
+        idOfUser = user_data.getInt("id",0);
+
+
         ArrayAdapter<String> adapter;
         if(response.equals("no")){
             adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,new String []{"Others"});
@@ -100,7 +108,9 @@ public class AddBook extends Fragment {
         String book_author = author_of_new_book.getText().toString();
         String book_link = link_of_new_book.getText().toString();
 
-        final String query = "INSERT INTO books values('"+book_name+"','"+book_author+"','"+book_link+"')";
+
+        final String query = "INSERT INTO books values(default,'"+book_name+"','"+book_author+"','"+book_link+"','"+id_of_category+"'," +
+                "'"+1+"')";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request =
                 new StringRequest(
@@ -110,8 +120,14 @@ public class AddBook extends Fragment {
                             @Override
                             public void onResponse(String response) {
                                 try {
+                                    Log.d("mylogs",response+"");
                                     JSONObject res = new JSONObject(response);
-                                } catch (JSONException e) {
+                                    if(res.getInt("success")==1){
+                                        Toast.makeText(getActivity(),"inserted successively",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(getActivity(),"To Insert you book not allowed",Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
@@ -131,12 +147,6 @@ public class AddBook extends Fragment {
                     }
                 };
         request.setTag("POST");
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                5000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-        Log.d("mylogs",DefaultRetryPolicy.DEFAULT_MAX_RETRIES+" "+DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         queue.add(request);
     }
 

@@ -1,5 +1,6 @@
 package mukhtar.exapple.com.solutions_book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -106,6 +107,7 @@ public class RegistrationPage extends AppCompatActivity {
         ed.commit();
         Intent i = new Intent(this,MainPage.class);
         startActivity(i);
+        Login.a.finish();
         finish();
 
     }
