@@ -22,6 +22,7 @@
 
     //General
     <string name="volley_error">Some errors occurs please try later</string>
+    <string name="title_activity_eseps">Eseps</string>
 
     //activity MyBooks
     <string name="button_add_new_book">Add new book</string>
@@ -40,10 +41,6 @@
 
     //fragment edit_book
     <string name="button_change_book">Change descriptions</string>
-
-
-
-
 
 
 </resources>
