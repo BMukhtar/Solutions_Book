@@ -10,14 +10,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".MainPage" />
+        <activity android:name=".Login" />
         <activity android:name=".RegistrationPage" />
         <activity android:name=".MyAccount" />
         <activity android:name=".forCategories.Categories" />
@@ -25,6 +27,7 @@
         <activity android:name=".BooksAppereance.Book" />
         <activity android:name=".exercises.Chapters" />
         <activity android:name=".exercises.Tasks" />
+        <activity android:name=".BooksAppereance.MyBooks" />
         <activity android:name=".exercises.Solution" />
         <activity android:name=".exercises.AddSolution"></activity>
     </application>
