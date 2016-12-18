@@ -1,6 +1,7 @@
 package mukhtar.exapple.com.solutions_book.forCategories;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +33,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import mukhtar.exapple.com.solutions_book.BooksAppereance.BooksResult;
 import mukhtar.exapple.com.solutions_book.R;
+import mukhtar.exapple.com.solutions_book.exercises.Chapters;
 
 public class Categories extends AppCompatActivity {
 
@@ -124,9 +127,19 @@ public class Categories extends AppCompatActivity {
             lv.setAdapter(adapter);
         }
 
-
-
-
+        lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+                //HashMap hm=(HashMap) expandableListView.getItemAtPosition(childPosition);
+                //Log.d("mylogs","groupPosition:"+groupPosition+",  childPosition:"+childPosition+",  id:"+id+"  CatName "+hm.get(CHILD_CATEGORY_NAME));
+                Log.d("mylogs"," catName "+childData.get(groupPosition).get(childPosition).get(CHILD_CATEGORY_NAME) + "    catId     " +
+                        childData.get(groupPosition).get(childPosition).get(CHILD_ID));
+                Intent intent=new Intent(getBaseContext(),BooksResult.class);
+                intent.putExtra("id_of_category",childData.get(groupPosition).get(childPosition).get(CHILD_ID));
+                startActivity(intent);
+                return false;
+            }
+        });
 
     }
 
@@ -161,6 +174,7 @@ public class Categories extends AppCompatActivity {
 
                     current_child_hashmap = new HashMap<>();
                     current_child_hashmap.put(CHILD_CATEGORY_NAME, child_name);
+                    current_child_hashmap.put(CHILD_ID,child_id);
                     childDataItem.add(current_child_hashmap);
                 }
                 childData.add(childDataItem);
@@ -186,4 +200,5 @@ public class Categories extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }
