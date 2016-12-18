@@ -374,6 +374,7 @@ public class MyAccount extends AppCompatActivity {
                                 try {
                                     JSONObject res = new JSONObject(response);
                                     if(res.getInt("success")==1){
+
                                         Log.d("mylogs",res.toString());
                                     }
                                 } catch (JSONException e) {
