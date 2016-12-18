@@ -42,8 +42,7 @@ public class AddBook extends Fragment {
     EditText author_of_new_book;
     EditText link_of_new_book;
     Spinner spinner_categories_data;
-    SharedPreferences sPref;
-    SharedPreferences user_data;
+    SharedPreferences sharedPreferences;
     int idOfUser;
     int id_of_category;
     Button add_book;
@@ -67,21 +66,21 @@ public class AddBook extends Fragment {
         link_of_new_book = (EditText) view.findViewById(R.id.edittext_book_link);
         spinner_categories_data = (Spinner) view.findViewById(R.id.spinner_categories_data);
 
-        sPref = getActivity().getSharedPreferences("Additional", Context.MODE_PRIVATE);
-        String response = sPref.getString("categories","no");
-        user_data = getActivity().getSharedPreferences("Username",Context.MODE_PRIVATE);
+
+        sharedPreferences = getActivity().getSharedPreferences("Username",Context.MODE_PRIVATE);
+        String categories = sharedPreferences.getString("categories","no");
 
         //May occur errors
-        idOfUser = user_data.getInt("id",0);
+        idOfUser = sharedPreferences.getInt("id",0);
 
 
         ArrayAdapter<String> adapter;
-        if(response.equals("no")){
+        if(categories.equals("no")){
             adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,new String []{"Others"});
 
         }else{
 
-            adapter =new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, getAdapter(response));
+            adapter =new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, getAdapter(categories));
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_categories_data.setAdapter(adapter);
@@ -110,7 +109,7 @@ public class AddBook extends Fragment {
 
 
         final String query = "INSERT INTO books values(default,'"+book_name+"','"+book_author+"','"+book_link+"','"+id_of_category+"'," +
-                "'"+1+"')";
+                "'"+idOfUser+"');";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request =
                 new StringRequest(

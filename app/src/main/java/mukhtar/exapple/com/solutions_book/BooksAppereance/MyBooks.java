@@ -22,7 +22,7 @@ public class MyBooks extends AppCompatActivity {
     ShowMyBooks fragment_show_my_books;
     ShowLikedBooks fragment_show_liked_books;
     SharedPreferences sharedPref;
-    int id_of_frame_layout;
+    public static int id_of_frame_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,6 @@ public class MyBooks extends AppCompatActivity {
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 fTrans = getFragmentManager().beginTransaction();
-                Log.d("mylogs",checkedId+"  on checked change listener");
                 switch(checkedId){
                     case R.id.radio_button_add_new_book:
                         fragment_add_book = new AddBook();

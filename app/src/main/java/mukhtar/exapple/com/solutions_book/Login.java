@@ -43,7 +43,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         a = this;
         sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
         String loginn = sharedPref.getString("username","");
-        String id = sharedPref.getString("id","");
         dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
         if(loginn!=""){

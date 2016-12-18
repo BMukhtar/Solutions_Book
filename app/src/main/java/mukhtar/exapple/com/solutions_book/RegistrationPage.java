@@ -3,13 +3,10 @@ package mukhtar.exapple.com.solutions_book;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -37,11 +34,15 @@ public class RegistrationPage extends AppCompatActivity {
     EditText conPassword;
     EditText etUsername;
     ImageView img;
+    String user_name;
+    String user_password;
+    Activity ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_page);
+        ctx = this;
         etName = (EditText) findViewById(R.id.name);
         etSurname = (EditText) findViewById(R.id.surname);
         etPassword = (EditText) findViewById(R.id.password);
@@ -67,6 +68,11 @@ public class RegistrationPage extends AppCompatActivity {
         else if(!etPassword.getText().toString().equals(conPassword.getText().toString())||conPassword.getText().toString().isEmpty()){
             Toast.makeText(this,"Please chek your password",Toast.LENGTH_SHORT).show();return;
         }
+
+        user_name = etUsername.getText().toString();
+        user_password = etPassword.getText().toString();
+
+
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request =
                 new StringRequest(
@@ -76,6 +82,15 @@ public class RegistrationPage extends AppCompatActivity {
                             @Override
                             public void onResponse(String response){
                                 Log.d("mylogs",response);
+                                try {
+                                    JSONObject res = new JSONObject(response);
+                                    if(res.getInt("success")==1){
+                                        Functions f = new Functions(ctx);
+                                        f.setInformationOnSharedReferences(user_name,user_password,true);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -97,18 +112,6 @@ public class RegistrationPage extends AppCompatActivity {
                 };
         request.setTag("POST");
         queue.add(request);
-
-        sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
-        SharedPreferences.Editor ed = sharedPref.edit();
-        ed.putString("username", etUsername.getText().toString());
-        ed.putString("password", etPassword.getText().toString());
-        ed.putString("name",etName.getText().toString());
-        ed.putString("surname",etSurname.getText().toString());
-        ed.commit();
-        Intent i = new Intent(this,MainPage.class);
-        startActivity(i);
-        Login.a.finish();
-        finish();
 
     }
 

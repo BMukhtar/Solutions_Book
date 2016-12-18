@@ -63,7 +63,7 @@ public class Categories extends AppCompatActivity {
         //main part
 
         lv = (ExpandableListView) findViewById(R.id.elv_for_categories);
-        sharedPreferences = getSharedPreferences("Additional",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Username",MODE_PRIVATE);
         if(sharedPreferences.getString("categories","").equals("")){
             // main part:
             String url1 = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
