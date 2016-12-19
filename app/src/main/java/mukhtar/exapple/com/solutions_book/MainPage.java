@@ -46,8 +46,12 @@ public class MainPage extends AppCompatActivity {
         f.setCategoriesJsonOnSharedReferences();
 
         //
-        if(getIntent().getBooleanExtra("is_first",false)){
-            f.setInformationOnSharedReferences(sharedPref.getString("username",""),sharedPref.getString("password",""),false);
+        if(getIntent().getStringExtra("is_first").equals("Yes")){
+            f.setInformationOnSharedReferences(sharedPref.getString("username",""),sharedPref.getString("password",""),
+                    true);
+        }else if(getIntent().getStringExtra("is_first").equals("No")){
+            f.setInformationOnSharedReferences(sharedPref.getString("username",""),sharedPref.getString("password",""),
+                    false);
         }
 
 

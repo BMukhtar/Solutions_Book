@@ -36,6 +36,7 @@ import java.util.Map;
 
 import mukhtar.exapple.com.solutions_book.R;
 
+import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.*;
 import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.id_of_frame_layout;
 
 
@@ -43,11 +44,6 @@ public class ShowMyBooks extends Fragment {
     ListView lv;
     SimpleAdapter sa;
     ArrayList<Map<String, String>> data = new ArrayList();
-    String current_id;
-    String current_name;
-    String current_author;
-    String current_link;
-    
     final int MENU_EDIT = 1;
     final int MENU_DELETE = 2;
     int user_id;
@@ -56,7 +52,6 @@ public class ShowMyBooks extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         act = getActivity();
         sharedPreferences = act.getSharedPreferences("Username", Context.MODE_PRIVATE);
         user_id = sharedPreferences.getInt("id",0);
@@ -86,14 +81,15 @@ public class ShowMyBooks extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
 
         AdapterView.AdapterContextMenuInfo ad=(AdapterView.AdapterContextMenuInfo)menuInfo;
-        HashMap<String,String> inf = (HashMap)lv.getItemAtPosition(ad.position);
+        HashMap<String,String> inf = (HashMap) lv.getItemAtPosition(ad.position);
+
         current_id=inf.get("id");
         current_name=inf.get("name");
         current_author=inf.get("author");
         current_link=inf.get("link");
 
 
-        
+
 
         menu.add(0, MENU_EDIT, 0, "Edit");
         menu.add(0, MENU_DELETE, 0, "Delete");
@@ -104,14 +100,8 @@ public class ShowMyBooks extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case MENU_EDIT:
-                SharedPreferences.Editor ed = sharedPreferences.edit();
-                ed.putString("book_id",current_id);
-                ed.putString("book_name",current_name);
-                ed.putString("book_author",current_author);
-                ed.putString("book_link",current_link);
-                ed.commit();
-                FragmentTransaction fTrans = getFragmentManager().beginTransaction();
                 Fragment edit_fragment = new EditMyBook();
+                fTrans = getFragmentManager().beginTransaction();
                 fTrans.replace(id_of_frame_layout,edit_fragment);
                 fTrans.commit();
                 break;
@@ -133,7 +123,7 @@ public class ShowMyBooks extends Fragment {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("mylogs",response);
+
                                 set_data(response);
                             }
                         },
@@ -167,9 +157,14 @@ public class ShowMyBooks extends Fragment {
                     book.put("name",information.getString(1));
                     book.put("author",information.getString(2));
                     book.put("link",information.getString(3));
+
                     data.add(book);
                 }
-                sa.notifyDataSetChanged();
+                Log.d("mylogs",data.size()+"");
+                sa = new SimpleAdapter(getActivity(), data, R.layout.item_my_book,
+                        new String[]{"name", "author","link"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
+                        R.id.textview_link_of_book});
+                lv.setAdapter(sa);
             }
 
         } catch (JSONException e) {
