@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/edit"
+          android:title="Edit account"
+        />
+    <item android:id="@+id/change_pas"
+          android:title="Change password"/>
+    <item android:id="@+id/logout"
+          android:title="Log out"/>
+    <item android:id="@+id/delAccount"
+          android:title="Delete account"/>
+
+
+</menu>

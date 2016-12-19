@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Environment;
@@ -69,8 +70,6 @@ public class MyAccount extends AppCompatActivity  {
     private ImageView ivImage;
 
     private String userChoosenTask;
-    SQLiteDatabase db;
-    DBHelper dbHelper;
     SharedPreferences sharedPref;
     EditText etName;
     EditText etSurname;
@@ -78,9 +77,9 @@ public class MyAccount extends AppCompatActivity  {
     EditText etPas2;
     ImageButton changeName;
     ImageButton changeSurname;
-    ImageButton changePas;
+    ImageView changePas;
     Button save;
-    Button del;
+
     ImageButton upload;
     final int DIALOG_EXIT = 1;
     ListView listView = null;
@@ -91,14 +90,12 @@ public class MyAccount extends AppCompatActivity  {
         setContentView(R.layout.activity_my_account);
 
 
-
-
         etName = (EditText) findViewById(R.id.nametext);
         etSurname = (EditText) findViewById(R.id.surnametext);
         etPas1 = (EditText) findViewById(R.id.changetext1);
         etPas2 = (EditText) findViewById(R.id.changetext2);
         save = (Button) findViewById(R.id.save);
-        del = (Button) findViewById(R.id.delete);
+
         upload = (ImageButton) findViewById(R.id.upload);
         ivImage = (ImageView) findViewById(R.id.imageView);
         sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
@@ -108,12 +105,16 @@ public class MyAccount extends AppCompatActivity  {
         etSurname.setEnabled(false);
         etPas1.setVisibility(View.INVISIBLE);
         etPas2.setVisibility(View.INVISIBLE);
-        changePas = (ImageButton) findViewById(R.id.changePas);
+        changePas = (ImageView) findViewById(R.id.changePas);
         changePas.setOnClickListener(onClickListener);
         save.setOnClickListener(onClickListener);
-        del.setOnClickListener(onClickListener);
+        save.setVisibility(View.INVISIBLE);
         upload.setOnClickListener(onClickListener);
         listView = new ListView(this);
+        String img = sharedPref.getString("image","");
+        Bitmap bitmap = StringToBitMap(img);
+        ivImage.setImageBitmap(bitmap);
+        Log.d("mylogs",img.toString());
 
 
 
@@ -121,9 +122,50 @@ public class MyAccount extends AppCompatActivity  {
 
 
     }
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_account,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.edit:
+                etName.setEnabled(true);
+                etSurname.setEnabled(true);
+                save.setVisibility(View.VISIBLE);
+                break;
+            case R.id.logout:
+                SharedPreferences.Editor ed = sharedPref.edit();
+                ed.putString("username","");
+                ed.commit();
 
+                Intent intent = new Intent(getBaseContext(),Login.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.delAccount:
+                break;
+            case R.id.change_pas:
+                etPas1.setVisibility(View.VISIBLE);
+                etPas2.setVisibility(View.VISIBLE);
+                save.setVisibility(View.VISIBLE);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -133,26 +175,12 @@ public class MyAccount extends AppCompatActivity  {
 
                 case R.id.upload:
                     selectImage();
-
-                    break;
-                case R.id.changePas:
-                    etPas1.setVisibility(View.VISIBLE);
-                    etPas2.setVisibility(View.VISIBLE);
+                    Functions f = new Functions(MyAccount.this);
+                    f.setInformationOnSharedReferences(sharedPref.getString("username",""),sharedPref.getString("password",""),false);
                     break;
 
                 case R.id.save:
-
                     break;
-                case R.id.delete:
-                    SharedPreferences.Editor ed = sharedPref.edit();
-
-
-                    ed.putString("username","");
-                    ed.commit();
-
-                    Intent intent = new Intent(getBaseContext(),Login.class);
-                    startActivity(intent);
-                    finish();
 
             }
         }
@@ -329,8 +357,11 @@ public class MyAccount extends AppCompatActivity  {
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, boas ); //bm is the bitmap object
         byte[] byteArrayImage = boas .toByteArray();
         final String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+        SharedPreferences.Editor ed = sharedPref.edit();
+        ed.putString("image",encodedImage);
+        ed.commit();
         String query = "UPDATE `users` SET `image`='"+encodedImage+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
-        for_query(query);
+        for_query(query,"image");
 
     }
 
@@ -366,10 +397,13 @@ public class MyAccount extends AppCompatActivity  {
         bm.compress(Bitmap.CompressFormat.JPEG, 100, boas ); //bm is the bitmap object
         byte[] byteArrayImage = boas .toByteArray();
         final String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+        SharedPreferences.Editor ed = sharedPref.edit();
+        ed.putString("image",encodedImage);
+        ed.commit();
         String query = "UPDATE `users` SET `image`='"+encodedImage+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
-        for_query(query);
+        for_query(query,"image");
     }
-    public void for_query(final String query){
+    public void for_query(final String query, String str){
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request =
                 new StringRequest(

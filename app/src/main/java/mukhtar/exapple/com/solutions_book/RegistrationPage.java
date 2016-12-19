@@ -3,6 +3,8 @@ package mukhtar.exapple.com.solutions_book;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +50,7 @@ public class RegistrationPage extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.password);
         conPassword = (EditText) findViewById(R.id.confirm);
         etUsername = (EditText) findViewById(R.id.username);
+
 
 
     }

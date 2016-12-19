@@ -21,33 +21,9 @@
             android:src="@drawable/addava"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
-            android:layout_toLeftOf="@+id/changeName"
+
         android:layout_x="10dp"
         android:layout_y="10dp" />
-    <Button
-        android:text="Delete Account"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:id="@+id/delete"
-        android:background="@drawable/delbutton"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/save"
-        android:layout_alignStart="@+id/save"
-        android:layout_marginBottom="17dp"
-        />
-
-    <Button
-        android:text="Save"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:background="@drawable/tick"
-        android:textColor="@color/white"
-        android:id="@+id/save"
-        android:layout_above="@+id/delete"
-        android:layout_alignLeft="@+id/changetext1"
-        android:layout_alignStart="@+id/changetext1"
-        android:layout_marginBottom="26dp" />
 
     <EditText
         android:lines="1"
@@ -95,21 +71,6 @@
         android:layout_below="@+id/surnametext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp" />
-
-    <EditText
-        android:lines="1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:id="@+id/changetext1"
-        android:text="some text"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp"
-        android:layout_below="@+id/changetext2"
-        android:layout_alignLeft="@+id/changetext2"
-        android:layout_alignStart="@+id/changetext2" />
 
     <TextView
         android:text="Name:"
@@ -160,15 +121,45 @@
         android:layout_marginRight="24dp"
         android:layout_marginEnd="24dp" />
 
-    <ImageButton
+    <Button
+        android:text="Save"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:background="@drawable/tick"
+        android:textColor="@color/white"
+        android:id="@+id/save"
+        android:layout_marginBottom="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/changetext1"
+        android:layout_alignStart="@+id/changetext1" />
+
+    <EditText
+        android:lines="1"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/changetext1"
+        android:text="some text"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/changetext2"
+        android:layout_alignLeft="@+id/changetext2"
+        android:layout_alignStart="@+id/changetext2" />
+
+    <ImageView
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:id="@+id/changePas"
         android:background="@drawable/tickimg"
-        android:onClick="changePas"
-        android:layout_alignTop="@+id/changetext2"
-        android:layout_alignLeft="@+id/upload"
-        android:layout_alignStart="@+id/upload" />
+
+        android:layout_alignTop="@+id/changetext1"
+        android:layout_toLeftOf="@+id/upload"
+        android:layout_toStartOf="@+id/upload"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
 
 
 </RelativeLayout>
