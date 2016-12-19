@@ -12,6 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,21 +35,10 @@ import mukhtar.exapple.com.solutions_book.R;
 import static mukhtar.exapple.com.solutions_book.R.id.lv;
 
 public class Tasks extends AppCompatActivity {
-    String response = "{\"success\":\"1\",\"data\":[\n" +
-            "{\"id\":1,\"number\":\"2\"},\n" +
-            "{\"id\":2,\"number\":\"4\"},\n" +
-            "{\"id\":3,\"number\":\"10\"},\n" +
-            "{\"id\":4,\"number\":\"4\"}\n" +
-            "]\n" + "}";
-
-
     ListView lv;
     Menu menu1;
-    ArrayAdapter aa;
-    ArrayList<String> data;
-
     SimpleAdapter sa;
-    ArrayList<Map<String, String>> dataSA;
+    ArrayList<Map<String, String>> dataSA=new ArrayList<>();
     String chapter="";
 
     @Override
@@ -50,36 +48,48 @@ public class Tasks extends AppCompatActivity {
         Intent intent=getIntent();
         chapter=intent.getStringExtra("chapter");
 
+        String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
+        final String query = "SELECT number,_id FROM tasks WHERE chapter="+chapter+" order by number ";
+        RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+        StringRequest request =
+                new StringRequest(
+                        Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("query",response);
+                                changeData(response);
 
-        lv = (ListView)findViewById(R.id.lv);
-        JSONObject res = null;
-        try {
-            res = new JSONObject(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Toast.makeText(getBaseContext(),"Can not load id",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap();
+                        map.put("query", query);
+                        return map;
+                    }
+                };
+        request.setTag("POST");
+        queue.add(request);
 
-            int o = res.getInt("success");
-            String text = "";
-            if (o == 1) {
-                JSONArray args = res.getJSONArray("data");
-                dataSA = new ArrayList();
-                for (int i = 0; i < args.length(); i++) {
-                    Map<String, String> map = new HashMap();
-                    map.put("number", chapter+"."+((JSONObject)args.get(i)).getString("number"));
-                    dataSA.add(map);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        lv = (ListView)findViewById(R.id.lvk);
         sa = new SimpleAdapter(this, dataSA, R.layout.item,
                 new String[]{"number"}, new int[]{R.id.item});
         lv.setAdapter(sa);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String str = (String) ((HashMap) lv.getItemAtPosition(i)).get("number");
+                String str = (String) ((HashMap) lv.getItemAtPosition(i)).get("id");
                 Intent intent = new Intent(getBaseContext(), Solution.class);
-                intent.putExtra("chapter",str.split("\\.")[0]);
-                intent.putExtra("number",str.split("\\.")[1]);
+                intent.putExtra("id",str);
                 startActivity(intent);
             }
         });
@@ -101,5 +111,26 @@ public class Tasks extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void changeData(String response){
+
+        try {
+            JSONObject result = new JSONObject(response);
+            if(result.getInt("success")==1){
+                JSONArray array = result.getJSONArray("products");
+                Log.d("mylogs",array.toString());
+                for(int i = 0; i<array.length();i++){
+                    HashMap<String,String> book = new HashMap<>();
+                    JSONArray information = array.getJSONArray(i);
+                    book.put("number",chapter+"."+information.getString(0));
+                    book.put("id",information.getString(1));
+                    dataSA.add(book);
+                }
+                sa.notifyDataSetChanged();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

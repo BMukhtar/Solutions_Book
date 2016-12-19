@@ -9,6 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,53 +31,59 @@ import mukhtar.exapple.com.solutions_book.R;
 
 public class Chapters extends AppCompatActivity {
 
-    String response = "{\"success\":\"1\",\"data\":[\n" +
-            "{\"id\":1,\"chapter\":\"1\"},\n" +
-            "{\"id\":2,\"chapter\":\"2\"},\n" +
-            "{\"id\":3,\"chapter\":\"5\"},\n" +
-            "{\"id\":4,\"chapter\":\"10\"}\n" +
-            "]\n" +
-            "}";
 
 
     ListView lv;
     Menu menu1;
     SimpleAdapter sa;
-    ArrayList<Map<String, String>> dataSA;
+    ArrayList<Map<String, String>> dataSA=new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
-        JSONObject res = null;
-        lv = (ListView) findViewById(R.id.lv);
+        Intent intent =getIntent();
+        String book_id = intent.getStringExtra("book_id");
+        String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";
+        final String query = "SELECT chapters FROM books WHERE _id="+book_id;
+        RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+        StringRequest request =
+                new StringRequest(
+                        Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("mylogs",response);
+                                changeData(response);
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Toast.makeText(getBaseContext(),"Can not load id",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap();
+                        map.put("query", query);
+                        return map;
+                    }
+                };
+        request.setTag("POST");
+        queue.add(request);
 
 
-        try {
-            res = new JSONObject(response);
-            Log.d( "mylogs",response);
-            int o = res.getInt("success");
-            String text = "";
-            if (o == 1) {
-                JSONArray args = res.getJSONArray("data");
-                dataSA = new ArrayList();
-                for (int i = 0; i < args.length(); i++) {
-                    Map<String, String> map = new HashMap();
-                    //map.put("number","."+((JSONObject)args.get(i)).getString("number"));
-                    //map.put("id", ((JSONObject)args.get(i)).getString("id"));
-                    map.put("chapter", "Chapter."+((JSONObject)args.get(i)).getString("chapter"));
-                    // map.put("chapter", "Item" + i);
-                    //map.put("id",i+"");
-                    dataSA.add(map);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+        lv = (ListView) findViewById(R.id.lvk);
         sa = new SimpleAdapter(this, dataSA, R.layout.item,
                 new String[]{"chapter"}, new int[]{R.id.item});
         lv.setAdapter(sa);
+        sa.notifyDataSetChanged();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -89,5 +104,31 @@ public class Chapters extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         this.menu1 = menu;
         return super.onCreateOptionsMenu(menu);
+    }
+    public void changeData(String response){
+
+        try {
+            JSONObject res = new JSONObject(response);
+            String ja=res.getJSONArray("products").getString(0);
+            JSONArray jarr = new JSONObject(ja).getJSONArray("chapters");
+            Log.d( "mylogs",response);
+            Log.d("mylogs","chapters"+jarr.toString());
+            int o = res.getInt("success");
+            String text = "";
+            if (o == 1) {
+                //JSONArray args = res.getJSONArray("data");
+
+                for (int i = 0; i < jarr.length(); i++) {
+                    Map<String, String> map = new HashMap();
+                    map.put("chapter", "Chapter."+jarr.getInt(i));
+                    Log.d("mylogs",jarr.getInt(i)+"");
+                    dataSA.add(map);
+                }
+                sa.notifyDataSetChanged();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
