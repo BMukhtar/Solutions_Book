@@ -9,8 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks">
     <TextView
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/textview_username"
@@ -24,18 +26,21 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:textColor="@color/white"
             android:id="@+id/radio_button_choose_my_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_choose_my_books"/>
 
         <RadioButton
+            android:textColor="@color/white"
             android:id="@+id/radio_button_choose_liked_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_choose_liked_books" />
 
         <RadioButton
+            android:textColor="@color/white"
             android:id="@+id/radio_button_add_new_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

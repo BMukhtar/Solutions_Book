@@ -3,16 +3,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/colorPrimary"
     tools:context="mukhtar.exapple.com.solutions_book.Fragments.AddBook">
 
     <TextView
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="20sp"
+        android:textAlignment="center"
         android:text="@string/text_view_welcome_to_add_book"/>
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:lines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -22,6 +27,9 @@
         android:maxLines="1"/>
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:lines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -31,6 +39,9 @@
         android:maxLines="1"/>
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:lines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -40,15 +51,18 @@
         android:maxLines="1"/>
 
     <Spinner
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_categories_data" />
 
     <Button
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/buttonshape"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:text="@string/button_add_new_book"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/button_add_new_book" />
-
 
 </LinearLayout>

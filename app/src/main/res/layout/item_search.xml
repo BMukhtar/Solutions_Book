@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
 
@@ -9,6 +10,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="Search..."
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:ems="10"
         android:id="@+id/edittext_search_book"
         android:layout_alignParentTop="true"
@@ -25,12 +28,16 @@
         android:layout_marginTop="18dp"
         android:id="@+id/radio_group_by">
         <RadioButton
+            android:textColor="@color/white"
+
             android:text="@string/radio_search_book_by_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radio_book_by_author"/>
 
         <RadioButton
+            android:textColor="@color/white"
+
             android:text="@string/radio_search_book_by_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +45,8 @@
     </RadioGroup>
 
     <Button
+        android:textColor="@color/white"
+        android:background="@drawable/buttonshape"
         android:text="@string/button_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

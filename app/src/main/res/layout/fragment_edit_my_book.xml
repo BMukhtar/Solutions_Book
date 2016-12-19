@@ -3,9 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="mukhtar.exapple.com.solutions_book.Fragments.EditMyBook">
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:lines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -15,6 +19,9 @@
         android:maxLines="1"/>
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:lines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -24,6 +31,9 @@
         android:maxLines="1"/>
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:lines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -34,14 +44,18 @@
 
 
     <Spinner
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_change_categories_data" />
 
     <Button
         android:text="@string/button_change_book"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/buttonshape"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:id="@+id/button_change_book" />
 
 </LinearLayout>

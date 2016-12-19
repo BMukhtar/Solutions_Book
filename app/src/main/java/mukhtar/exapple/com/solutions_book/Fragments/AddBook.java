@@ -2,6 +2,7 @@ package mukhtar.exapple.com.solutions_book.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class AddBook extends Fragment {
     int id_of_category;
     Button add_book;
     String [] [] dataOfCategories;
-
+    String others = "Others";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class AddBook extends Fragment {
 
         ArrayAdapter<String> adapter;
         if(categories.equals("no")){
-            adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,new String []{"Others"});
+            adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,new String []{others});
 
         }else{
 
@@ -84,7 +85,7 @@ public class AddBook extends Fragment {
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_categories_data.setAdapter(adapter);
-        spinner_categories_data.setPrompt("Others");
+        spinner_categories_data.setPrompt(others);
         spinner_categories_data.setSelection(0);
         spinner_categories_data.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

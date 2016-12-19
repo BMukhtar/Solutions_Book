@@ -2,17 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     tools:context="mukhtar.exapple.com.solutions_book.Fragments.ShowMyBooks">
 
 
     <TextView
+        android:textColor="@color/white"
         android:text="@string/textview_hint_my_books_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:id="@+id/textview_hint_my_books_fragment" />
     <ListView
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview_my_books">
