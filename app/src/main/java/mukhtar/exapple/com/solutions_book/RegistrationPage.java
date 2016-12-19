@@ -66,7 +66,7 @@ public class RegistrationPage extends AppCompatActivity {
             Toast.makeText(this,"password can not be empty",Toast.LENGTH_SHORT).show();return;
         }
         else if(!etPassword.getText().toString().equals(conPassword.getText().toString())||conPassword.getText().toString().isEmpty()){
-            Toast.makeText(this,"Please chek your password",Toast.LENGTH_SHORT).show();return;
+            Toast.makeText(this,"Please check your password",Toast.LENGTH_SHORT).show();return;
         }
 
         user_name = etUsername.getText().toString();
