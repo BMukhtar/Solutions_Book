@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import mukhtar.exapple.com.solutions_book.MyAccount;
 import mukhtar.exapple.com.solutions_book.R;
 import mukhtar.exapple.com.solutions_book.Utility;
 
@@ -65,12 +66,13 @@ public class AddSolution extends AppCompatActivity {
         button= (Button)findViewById(R.id.btn_add_solution);
         image_view_solutions_image = (ImageView) findViewById(R.id.imageview_solutions_image);
         task_id = getIntent().getStringExtra("task_id");
+        sharedPref = getSharedPreferences("Username",MODE_PRIVATE);
+
     }
 
     public void addSolution(View v){
         String data = editText.getText().toString();
-        String query = "INSERT INTO solutions  VALUES (DEFAULT,'"+encodedImage+"',"+task_id+",'"+data+"','"+encodedImage+"') ";
-
+        String query = "INSERT INTO solutions(user_id, task_id, data, image) VALUES('"+sharedPref.getInt("id",0)+"','"+task_id+"','"+data+"','"+encodedImage+"')";
         for_query(query);
 
     }
@@ -119,7 +121,7 @@ public class AddSolution extends AppCompatActivity {
                 "Cancel" };
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddSolution.this);
 
         builder.setTitle("Add Photo!");
 
@@ -130,7 +132,7 @@ public class AddSolution extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
 
 
-                boolean result=Utility.checkPermission(getBaseContext());
+                boolean result=Utility.checkPermission(AddSolution.this);
 
 
                 if (items[item].equals("Take Photo")) {
@@ -282,10 +284,13 @@ public class AddSolution extends AppCompatActivity {
 
 
         image_view_solutions_image.setImageBitmap(bm);
+
         ByteArrayOutputStream boas = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, boas ); //bm is the bitmap object
+        bm.compress(Bitmap.CompressFormat.JPEG,100
+                , boas ); //bm is the bitmap object
         byte[] byteArrayImage = boas .toByteArray();
         encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+
     }
     public void for_query(final String query){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -296,11 +301,9 @@ public class AddSolution extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response){
-                                Log.d("mylogs",response);
                                 try {
                                     JSONObject res = new JSONObject(response);
                                     if(res.getInt("success")==1){
-                                        finish();
                                         Log.d("mylogs",res.toString());
                                     }
                                 } catch (JSONException e) {
@@ -327,5 +330,4 @@ public class AddSolution extends AppCompatActivity {
         queue.add(request);
 
     }
-
 }
