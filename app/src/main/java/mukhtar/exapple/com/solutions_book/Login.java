@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,6 +83,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response){
+                                        Log.d("mylogs",response);
                                         try {
                                             JSONObject res = new JSONObject(response);
                                             JSONArray args = res.getJSONArray("products");
@@ -91,13 +93,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                                 logS = ((JSONArray) args.get(i)).getString(0);
                                                 passS = ((JSONArray) args.get(i)).getString(1);
                                             }
+                                            Log.d("mylogs",log+" = "+logS);
+                                            Log.d("mylogs",response);
 
                                             if(log.equals(logS) && pass.equals(passS)){
                                                 sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
                                                 SharedPreferences.Editor et = sharedPref.edit();
                                                 et.putString("username",log);
                                                 et.commit();
-
+                                                Log.d("mylogs",log);
                                                 Intent i = new Intent(getBaseContext(),MainPage.class);
                                                 startActivity(i);
                                                 finish();
@@ -120,7 +124,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Map<String, String> map = new HashMap();
-                                map.put("query", "SELECT username, password FROM users WHERE name='"+log+"'");
+                                map.put("query", "SELECT username, password FROM users WHERE username='"+log+"'");
 
 
                                 return map;

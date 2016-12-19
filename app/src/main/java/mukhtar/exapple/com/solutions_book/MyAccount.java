@@ -81,7 +81,6 @@ public class MyAccount extends AppCompatActivity  {
     Button save;
 
     ImageButton upload;
-    final int DIALOG_EXIT = 1;
     ListView listView = null;
 
     @Override
@@ -114,7 +113,7 @@ public class MyAccount extends AppCompatActivity  {
         String img = sharedPref.getString("image","");
         Bitmap bitmap = StringToBitMap(img);
         ivImage.setImageBitmap(bitmap);
-        Log.d("mylogs",img.toString());
+
 
 
 
