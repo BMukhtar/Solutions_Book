@@ -37,7 +37,6 @@ import java.util.Map;
 import mukhtar.exapple.com.solutions_book.R;
 
 import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.*;
-import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.id_of_frame_layout;
 
 
 public class ShowMyBooks extends Fragment {
@@ -103,6 +102,7 @@ public class ShowMyBooks extends Fragment {
                 Fragment edit_fragment = new EditMyBook();
                 fTrans = getFragmentManager().beginTransaction();
                 fTrans.replace(id_of_frame_layout,edit_fragment);
+                fTrans.addToBackStack("true");
                 fTrans.commit();
                 break;
             case MENU_DELETE:
@@ -149,6 +149,7 @@ public class ShowMyBooks extends Fragment {
         try {
             JSONObject result = new JSONObject(response);
             if(result.getInt("success")==1){
+                Log.d("mylogs",response);
                 JSONArray array = result.getJSONArray("products");
                 for(int i = 0; i<array.length();i++){
                     HashMap<String,String> book = new HashMap<>();
@@ -160,11 +161,7 @@ public class ShowMyBooks extends Fragment {
 
                     data.add(book);
                 }
-                Log.d("mylogs",data.size()+"");
-                sa = new SimpleAdapter(getActivity(), data, R.layout.item_my_book,
-                        new String[]{"name", "author","link"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
-                        R.id.textview_link_of_book});
-                lv.setAdapter(sa);
+                sa.notifyDataSetChanged();
             }
 
         } catch (JSONException e) {
