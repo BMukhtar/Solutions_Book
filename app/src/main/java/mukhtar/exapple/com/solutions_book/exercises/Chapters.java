@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -37,14 +38,14 @@ public class Chapters extends AppCompatActivity {
     Menu menu1;
     SimpleAdapter sa;
     ArrayList<Map<String, String>> dataSA=new ArrayList<>();
-
+    String book_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
         Intent intent =getIntent();
-        String book_id = intent.getStringExtra("book_id");
+        book_id = intent.getStringExtra("book_id");
         String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";
         final String query = "SELECT chapters FROM books WHERE _id="+book_id;
         RequestQueue queue = Volley.newRequestQueue(getBaseContext());
@@ -105,6 +106,19 @@ public class Chapters extends AppCompatActivity {
         this.menu1 = menu;
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.add_chapter:
+                Intent intent =new Intent(getBaseContext(),AddChapter.class);
+                intent.putExtra("book_id",book_id);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void changeData(String response){
 
         try {
