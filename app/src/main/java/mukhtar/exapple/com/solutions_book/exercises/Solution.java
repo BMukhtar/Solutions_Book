@@ -62,6 +62,13 @@ public class Solution extends AppCompatActivity {
 
         sa = new SimpleAdapter(this, dataSA, R.layout.item_solution,
                 new String[]{"data","user_id"}, new int[]{R.id.item_solution_text,R.id.item_solution_login});
+        sa.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object o, String s) {
+
+                return false;
+            }
+        });
         lv.setAdapter(sa);
     }
     @Override

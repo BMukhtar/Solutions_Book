@@ -418,7 +418,8 @@ public class MyAccount extends AppCompatActivity  {
         ivImage.setImageBitmap(bm);
 
         ByteArrayOutputStream boas = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, boas ); //bm is the bitmap object
+        bm.compress(Bitmap.CompressFormat.JPEG,100
+                , boas ); //bm is the bitmap object
         byte[] byteArrayImage = boas .toByteArray();
         final String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
         SharedPreferences.Editor ed = sharedPref.edit();
