@@ -436,7 +436,6 @@ public class MyAccount extends AppCompatActivity  {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response){
-                                Log.d("mylogs",response);
                                 try {
                                     JSONObject res = new JSONObject(response);
                                     if(res.getInt("success")==1){

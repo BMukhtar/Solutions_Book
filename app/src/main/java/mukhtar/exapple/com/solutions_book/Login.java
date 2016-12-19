@@ -48,6 +48,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         db = dbHelper.getWritableDatabase();
         if(loginn!=""){
             Intent in = new Intent(this,MainPage.class);
+            in.putExtra("is_first","not");
             startActivity(in);
             finish();
         }
@@ -100,9 +101,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                                 sharedPref = getSharedPreferences("Username",getBaseContext().MODE_PRIVATE);
                                                 SharedPreferences.Editor et = sharedPref.edit();
                                                 et.putString("username",log);
+                                                et.putString("password",pass);
                                                 et.commit();
                                                 Log.d("mylogs",log);
                                                 Intent i = new Intent(getBaseContext(),MainPage.class);
+                                                i.putExtra("is_first","No");
                                                 startActivity(i);
                                                 finish();
                                             }

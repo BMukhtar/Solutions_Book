@@ -1,6 +1,8 @@
 package mukhtar.exapple.com.solutions_book.BooksAppereance;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,22 +18,21 @@ import mukhtar.exapple.com.solutions_book.R;
 
 public class MyBooks extends AppCompatActivity {
 
+    public static String current_id;
+    public static String current_name;
+    public static String current_author;
+    public static String current_link;
     RadioGroup rg;
-    FragmentTransaction fTrans;
+    public static FragmentTransaction fTrans;
     AddBook fragment_add_book;
     ShowMyBooks fragment_show_my_books;
     ShowLikedBooks fragment_show_liked_books;
-    SharedPreferences sharedPref;
     public static int id_of_frame_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_books);
-
-        sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
-        TextView userName = (TextView) findViewById(R.id.textview_username);
-        userName.setText(sharedPref.getString("username",""));
 
         id_of_frame_layout = R.id.frame_layout_my_books;
         rg = (RadioGroup) findViewById(R.id.radio_group_show_my_books);

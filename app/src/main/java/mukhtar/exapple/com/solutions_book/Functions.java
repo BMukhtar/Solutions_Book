@@ -81,6 +81,7 @@ public class Functions {
     void setInformationOnSharedReferences(String username, String password, final boolean isfirst){
         String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";
         final String query = "SELECT * FROM users WHERE username = '"+username+"' and password = '"+password+"' ;";
+        Log.d("mylogs",username+" "+password);
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest request =
                 new StringRequest(
@@ -135,9 +136,10 @@ public class Functions {
                 ed.putString("password",password);
                 ed.putString("image",image);
                 ed.commit();
+                Toast.makeText(context,"sharedPreferences updated id is "+id+" name is "+name,Toast.LENGTH_SHORT).show();
                 if(is_first){
                     Intent i = new Intent(context,MainPage.class);
-                    i.putExtra("is_first",true);
+                    i.putExtra("is_first","not");
                     context.startActivity(i);
                     Login.a.finish();
                     context.finish();
