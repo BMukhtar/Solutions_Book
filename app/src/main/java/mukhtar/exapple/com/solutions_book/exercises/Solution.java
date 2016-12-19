@@ -72,6 +72,7 @@ public class Solution extends AppCompatActivity {
         switch (id){
             case R.id.add_solution:
                 Intent intent = new Intent(getBaseContext(),AddSolution.class);
+                intent.putExtra("task_id",task_id);
                 startActivity(intent);
                 break;
         }

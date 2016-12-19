@@ -39,7 +39,14 @@ import mukhtar.exapple.com.solutions_book.R;
 import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.id_of_frame_layout;
 
 
-public class ShowMyBooks extends Fragment {
+public class ShowMyTasks extends Fragment {
+
+
+    public ShowMyTasks() {
+        // Required empty public constructor
+    }
+
+
     ListView lv;
     SimpleAdapter sa;
     ArrayList<Map<String, String>> data = new ArrayList();
@@ -47,8 +54,7 @@ public class ShowMyBooks extends Fragment {
     String current_name;
     String current_author;
     String current_link;
-    
-    final int MENU_EDIT = 1;
+
     final int MENU_DELETE = 2;
     int user_id;
     SharedPreferences sharedPreferences;
@@ -72,7 +78,7 @@ public class ShowMyBooks extends Fragment {
 
         registerForContextMenu(lv);
         sa = new SimpleAdapter(getActivity(), data, R.layout.item_my_book,
-                new String[]{"name", "author","link"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
+                new String[]{"number", "text","link"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
                 R.id.textview_link_of_book});
         lv.setAdapter(sa);
         update_data();
@@ -92,10 +98,6 @@ public class ShowMyBooks extends Fragment {
         current_author=inf.get("author");
         current_link=inf.get("link");
 
-
-        
-
-        menu.add(0, MENU_EDIT, 0, "Edit");
         menu.add(0, MENU_DELETE, 0, "Delete");
 
     }
@@ -103,18 +105,7 @@ public class ShowMyBooks extends Fragment {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case MENU_EDIT:
-                SharedPreferences.Editor ed = sharedPreferences.edit();
-                ed.putString("book_id",current_id);
-                ed.putString("book_name",current_name);
-                ed.putString("book_author",current_author);
-                ed.putString("book_link",current_link);
-                ed.commit();
-                FragmentTransaction fTrans = getFragmentManager().beginTransaction();
-                Fragment edit_fragment = new EditMyBook();
-                fTrans.replace(id_of_frame_layout,edit_fragment);
-                fTrans.commit();
-                break;
+
             case MENU_DELETE:
                 delete_data();
                 break;
@@ -124,7 +115,7 @@ public class ShowMyBooks extends Fragment {
 
     void update_data(){
         String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
-        final String query = "SELECT * FROM books WHERE user_id = '"+user_id+"'";
+        final String query = "SELECT * FROM tasks WHERE user_id = '"+user_id+"'";
         RequestQueue queue = Volley.newRequestQueue(act);
         StringRequest request =
                 new StringRequest(
