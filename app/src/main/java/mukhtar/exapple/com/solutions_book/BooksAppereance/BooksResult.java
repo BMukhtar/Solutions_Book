@@ -1,11 +1,13 @@
 package mukhtar.exapple.com.solutions_book.BooksAppereance;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mukhtar.exapple.com.solutions_book.R;
+import mukhtar.exapple.com.solutions_book.exercises.Chapters;
 
 public class BooksResult extends AppCompatActivity {
     EditText search;
@@ -50,8 +53,8 @@ public class BooksResult extends AppCompatActivity {
         LinearLayout ll = (LinearLayout) findViewById(R.id.activity_books_result);
         act=this;
         sa = new SimpleAdapter(act, data, R.layout.item_my_book,
-                new String[]{"name", "author","link"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
-                R.id.textview_link_of_book});
+                new String[]{"name", "author"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
+        });
         lv.setAdapter(sa);
         if (query.equals("search")) {
             LayoutInflater inflater = (this).getLayoutInflater();
@@ -80,6 +83,15 @@ public class BooksResult extends AppCompatActivity {
         }else {
             update_data_category(query);
         }
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("mylogs","book_id:"+data.get(i).get("id"));
+                Intent intent =new Intent(getBaseContext(), Chapters.class);
+                intent.putExtra("book_id",data.get(i).get("id"));
+                startActivity(intent);
+            }
+        });
 
 
 

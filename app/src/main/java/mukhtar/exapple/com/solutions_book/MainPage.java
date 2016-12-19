@@ -75,7 +75,6 @@ public class MainPage extends AppCompatActivity {
                     break;
 
                 case R.id.my_books:
-                    Log.d("mylogs","Madik");
                     Intent my_books = new Intent(getBaseContext(), MyBooks.class);
                     startActivity(my_books);
                     break;
