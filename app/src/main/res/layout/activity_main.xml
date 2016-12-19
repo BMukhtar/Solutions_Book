@@ -24,23 +24,26 @@
         />
 
     <EditText
+        android:lines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/login"
         android:hint="Username"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <EditText
+        android:lines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:id="@+id/password"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-
+        android:inputType="textPassword"
         android:layout_below="@+id/login"
         android:layout_alignLeft="@+id/login"
         android:layout_alignStart="@+id/login"

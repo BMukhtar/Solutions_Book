@@ -1,5 +1,9 @@
 package mukhtar.exapple.com.solutions_book;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -8,8 +12,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,7 +58,10 @@ import java.util.Map;
 import mukhtar.exapple.com.solutions_book.DBHelper;
 import mukhtar.exapple.com.solutions_book.Login;
 import mukhtar.exapple.com.solutions_book.R;
-public class MyAccount extends AppCompatActivity {
+public class MyAccount extends AppCompatActivity  {
+    private Animator mCurrentAnimator;
+    private int mShortAnimationDuration;
+
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
 
     private Button btnSelect;
@@ -79,6 +90,9 @@ public class MyAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
 
+
+
+
         etName = (EditText) findViewById(R.id.nametext);
         etSurname = (EditText) findViewById(R.id.surnametext);
         etPas1 = (EditText) findViewById(R.id.changetext1);
@@ -94,11 +108,7 @@ public class MyAccount extends AppCompatActivity {
         etSurname.setEnabled(false);
         etPas1.setVisibility(View.INVISIBLE);
         etPas2.setVisibility(View.INVISIBLE);
-        changeName = (ImageButton) findViewById(R.id.changeName);
-        changeSurname = (ImageButton) findViewById(R.id.changeSurname);
         changePas = (ImageButton) findViewById(R.id.changePas);
-        changeName.setOnClickListener(onClickListener);
-        changeSurname.setOnClickListener(onClickListener);
         changePas.setOnClickListener(onClickListener);
         save.setOnClickListener(onClickListener);
         del.setOnClickListener(onClickListener);
@@ -109,8 +119,8 @@ public class MyAccount extends AppCompatActivity {
 
 
 
-    }
 
+    }
 
 
 
@@ -120,10 +130,7 @@ public class MyAccount extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.changeName:
-                    etName.setEnabled(true);break;
-                case R.id.changeSurname:
-                    etSurname.setEnabled(true);break;
+
                 case R.id.upload:
                     selectImage();
 
@@ -354,6 +361,7 @@ public class MyAccount extends AppCompatActivity {
 
 
         ivImage.setImageBitmap(bm);
+
         ByteArrayOutputStream boas = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, boas ); //bm is the bitmap object
         byte[] byteArrayImage = boas .toByteArray();
@@ -374,7 +382,6 @@ public class MyAccount extends AppCompatActivity {
                                 try {
                                     JSONObject res = new JSONObject(response);
                                     if(res.getInt("success")==1){
-
                                         Log.d("mylogs",res.toString());
                                     }
                                 } catch (JSONException e) {
@@ -401,8 +408,6 @@ public class MyAccount extends AppCompatActivity {
         queue.add(request);
 
     }
-
-
 
 
 
