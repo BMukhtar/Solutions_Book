@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -49,6 +50,8 @@ public class Tasks extends AppCompatActivity {
         Intent intent=getIntent();
         chapter=intent.getStringExtra("chapter");
         book_id =intent.getStringExtra("book_id");
+        Button bb = (Button)findViewById(R.id.button_add_to_liked_books);
+        bb.setVisibility(View.GONE);
         String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
         final String query = "SELECT number,_id FROM tasks WHERE chapter="+chapter+" order by number ";
         RequestQueue queue = Volley.newRequestQueue(getBaseContext());

@@ -64,6 +64,7 @@ public class Chapters extends AppCompatActivity {
                 Log.d("chapter",str);
                 Intent intent = new Intent(getBaseContext(), Tasks.class);
                 intent.putExtra("chapter",str);
+                intent.putExtra("book_id",book_id);
                 startActivity(intent);
             }
         });

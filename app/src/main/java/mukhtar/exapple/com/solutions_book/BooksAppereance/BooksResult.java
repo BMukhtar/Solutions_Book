@@ -77,25 +77,22 @@ public class BooksResult extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "changed to by "+radioResult, Toast.LENGTH_SHORT).show();
                 }
             });
+            rg.check(R.id.radio_book_by_name);
             ll.addView(view,0);
 
 
         }else {
             update_data_category(query);
         }
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("mylogs","book_id:"+data.get(i).get("id"));
-                Intent intent =new Intent(getBaseContext(), Chapters.class);
-                intent.putExtra("book_id",data.get(i).get("id"));
-                startActivity(intent);
-            }
-        });
-
-
-
     }
+
+    View.OnClickListener button_search_listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String text = search.getText().toString();
+            String query = "SELECT * FROM books WHERE "+radioResult+" LIKE";
+        }
+    };
 
     void update_data_category(String cat){
         Log.d("mylogs",cat);

@@ -4,6 +4,7 @@ package mukhtar.exapple.com.solutions_book.Fragments;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mukhtar.exapple.com.solutions_book.R;
+import mukhtar.exapple.com.solutions_book.exercises.Chapters;
 
 import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.id_of_frame_layout;
 
@@ -70,6 +72,15 @@ public class ShowLikedBooks extends Fragment {
                 new String[]{"name", "author","link"}, new int[]{R.id.textview_name_of_book, R.id.textview_author_of_book,
                 R.id.textview_link_of_book});
         lv.setAdapter(sa);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("mylogs","book_id:"+data.get(i).get("id"));
+                Intent intent =new Intent(act, Chapters.class);
+                intent.putExtra("book_id",data.get(i).get("id"));
+                startActivity(intent);
+            }
+        });
         update_data();
 
         return view;
