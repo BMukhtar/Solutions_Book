@@ -29,16 +29,14 @@
         android:id="@+id/radio_group_by">
         <RadioButton
             android:textColor="@color/white"
-
-            android:text="@string/radio_search_book_by_name"
+            android:text="@string/radio_search_book_by_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radio_book_by_author"/>
 
         <RadioButton
             android:textColor="@color/white"
-
-            android:text="@string/radio_search_book_by_author"
+            android:text="@string/radio_search_book_by_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radio_book_by_name"/>

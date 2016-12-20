@@ -61,6 +61,7 @@ public class BooksResult extends AppCompatActivity {
             View view = inflater.inflate(R.layout.item_search, null, false);
             search = (EditText) view.findViewById(R.id.edittext_search_book);
             button_search = (Button) view.findViewById(R.id.button_search_books);
+            button_search.setOnClickListener(button_search_listener);
             rg = (RadioGroup) view.findViewById(R.id.radio_group_by);
             rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
             {
@@ -84,15 +85,71 @@ public class BooksResult extends AppCompatActivity {
         }else {
             update_data_category(query);
         }
-    }
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("mylogs","book_id:"+data.get(i).get("id"));
+                Intent intent =new Intent(getBaseContext(), Chapters.class);
+                intent.putExtra("book_id",data.get(i).get("id"));
+                startActivity(intent);
+            }
+        });
 
+
+
+    }
     View.OnClickListener button_search_listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            data.clear();
+            sa.notifyDataSetChanged();
             String text = search.getText().toString();
-            String query = "SELECT * FROM books WHERE "+radioResult+" LIKE";
+            final String query = "SELECT * FROM books WHERE book_"+radioResult+" LIKE '"+text+"%'";
+            queryForResultBooks(query);
         }
     };
+
+    void queryForResultBooks(final String query){
+        String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
+        RequestQueue queue = Volley.newRequestQueue(act);
+        StringRequest request =
+                new StringRequest(
+                        Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("mylogs",response);
+                                try {
+                                    JSONObject js = new JSONObject(response);
+                                    if(js.getInt("success")==1){
+                                        if(!js.isNull("products"))
+                                            set_data(response);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Toast.makeText(act,"Can not load books",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap();
+                        map.put("query", query);
+                        return map;
+                    }
+                };
+        request.setTag("POST");
+        queue.add(request);
+    }
+
 
     void update_data_category(String cat){
         Log.d("mylogs",cat);
@@ -107,6 +164,8 @@ public class BooksResult extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 Log.d("mylogs",response);
+
+
                                 set_data(response);
                             }
                         },
@@ -128,43 +187,12 @@ public class BooksResult extends AppCompatActivity {
         queue.add(request);
     }
 
-    void update_data_search(String cat){
-        String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
-        final String query = "SELECT * FROM books WHERE cat_id='"+cat+"'";
-        RequestQueue queue = Volley.newRequestQueue(act);
-        StringRequest request =
-                new StringRequest(
-                        Request.Method.POST,
-                        url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.d("mylogs",response);
-                                set_data(response);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Toast.makeText(act,"Can not load books",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                ) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> map = new HashMap();
-                        map.put("query", query);
-                        return map;
-                    }
-                };
-        request.setTag("POST");
-        queue.add(request);
-    }
     void set_data(String response){
         try {
             JSONObject result = new JSONObject(response);
             if(result.getInt("success")==1){
                 JSONArray array = result.getJSONArray("products");
+                data.clear();
                 for(int i = 0; i<array.length();i++){
                     HashMap<String,String> book = new HashMap<>();
                     JSONArray information = array.getJSONArray(i);
