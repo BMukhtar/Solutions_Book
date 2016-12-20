@@ -1,15 +1,11 @@
 package mukhtar.exapple.com.solutions_book.BooksAppereance;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import mukhtar.exapple.com.solutions_book.Fragments.AddBook;
 import mukhtar.exapple.com.solutions_book.Fragments.ShowLikedBooks;

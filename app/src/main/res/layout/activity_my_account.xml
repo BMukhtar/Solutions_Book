@@ -118,18 +118,6 @@
         android:layout_marginRight="24dp"
         android:layout_marginEnd="24dp" />
 
-    <Button
-        android:text="Save"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:background="@drawable/tick"
-        android:textColor="@color/white"
-        android:id="@+id/save"
-        android:layout_marginBottom="37dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/changetext1"
-        android:layout_alignStart="@+id/changetext1" />
-
     <EditText
         android:lines="1"
         android:layout_width="150dp"
@@ -157,6 +145,17 @@
         android:layout_toStartOf="@+id/upload"
         android:layout_marginRight="14dp"
         android:layout_marginEnd="14dp" />
+
+    <Button
+        android:text="Save"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:background="@drawable/tick"
+        android:textColor="@color/white"
+        android:id="@+id/save"
+        android:layout_below="@+id/changetext1"
+        android:layout_alignLeft="@+id/changetext1"
+        android:layout_alignStart="@+id/changetext1" />
 
 
 </RelativeLayout>

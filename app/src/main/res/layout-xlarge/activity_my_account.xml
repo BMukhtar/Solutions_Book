@@ -145,18 +145,6 @@
         android:layout_alignStart="@+id/changetext1"
         android:layout_marginTop="120dp" />
 
-    <Button
-        android:text="Delete Account"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:id="@+id/delete"
-        android:background="@drawable/delbutton"
-        android:textColor="@color/white"
-        android:layout_below="@+id/save"
-        android:layout_alignLeft="@+id/save"
-        android:layout_alignStart="@+id/save"
-        android:layout_marginTop="32dp" />
-
 
     <ImageView
         android:layout_width="782dp"

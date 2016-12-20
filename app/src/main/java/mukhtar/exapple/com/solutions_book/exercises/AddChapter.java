@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,20 +20,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import mukhtar.exapple.com.solutions_book.R;
 
+import static mukhtar.exapple.com.solutions_book.exercises.Chapters.chapters;
+import static mukhtar.exapple.com.solutions_book.exercises.Chapters.dataSA;
+
 public class AddChapter extends AppCompatActivity {
     EditText editText;
     String book_id;
-    String s;
-    ArrayList<String> list = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +41,11 @@ public class AddChapter extends AppCompatActivity {
         book_id=intent.getStringExtra("book_id");
     }
     public void save(View v){
-       s =editText.getText().toString();
-        String url="http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";
-        String url1="http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_query.php";
-        final String query = "SELECT chapters FROM books WHERE _id="+book_id;
-        final String query1 = "UPDATE books set  chapters={chapters:["+list.toString()+"]} where _id="+book_id;
-        for_query(query,url,true);
-        for_query(query1,url1,false);
+        String url="http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_query.php";
+        final String query = "UPDATE books SET chapters='"+getRes()+"' where _id="+book_id;
+        for_query(query,url);
     }
-    public void for_query(final String query,String url,final boolean t){
+    public void for_query(final String query,String url){
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request =
                 new StringRequest(
@@ -59,9 +54,9 @@ public class AddChapter extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response){
-                                Log.d("mylogs",response);
-                                if(t){
-                                    changeData(response);}
+                                Toast.makeText(getBaseContext(),"chapter added succesfully  "+response,Toast.LENGTH_SHORT).show();
+
+                                finish();
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -74,8 +69,6 @@ public class AddChapter extends AppCompatActivity {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> map = new HashMap();
                         map.put("query", query);
-
-
                         return map;
                     }
                 };
@@ -83,22 +76,28 @@ public class AddChapter extends AppCompatActivity {
         queue.add(request);
 
     }
-    public void changeData(String response){
-
+    public String getRes(){
+        int currentChapter = Integer.parseInt(editText.getText().toString());
         try {
-            JSONObject res = new JSONObject(response);
-            String ja=res.getJSONArray("products").getString(0);
-            JSONArray jarr = new JSONObject(ja).getJSONArray("chapters");
-            int size = jarr.length();
-            for (int i=0;i<size;i++){
-                list.add(jarr.get(i).toString());
+            JSONObject result = new JSONObject("{}");
+            JSONArray array = new JSONArray();
+            if(!chapters.contains(currentChapter)){
+                chapters.add(currentChapter);
             }
-            list.add(s);
-            Collections.sort(list);
-            Log.d( "mylogs",list.toString());
+            for(int c:chapters){
+                array.put(c);
+            }
+            result.put("chapters",array);
+            Log.d("mylogs",result.toString());
+            return result.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return "{chapters:["+currentChapter+"]}";
+
+
+
+
 
     }
 }

@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mukhtar.exapple.com.solutions_book.R;
+import static mukhtar.exapple.com.solutions_book.BooksAppereance.MyBooks.*;
 
 
 public class EditMyBook extends Fragment {
@@ -59,6 +60,9 @@ public class EditMyBook extends Fragment {
         author_of_new_book = (EditText) view.findViewById(R.id.edittext_change_book_author);
         link_of_new_book = (EditText) view.findViewById(R.id.edittext_change_book_link);
         spinner_categories_data = (Spinner) view.findViewById(R.id.spinner_change_categories_data);
+        name_of_new_book.setText(current_name);
+        author_of_new_book.setText(current_author);
+        link_of_new_book.setText(current_link);
 
 
         sharedPreferences = getActivity().getSharedPreferences("Username", Context.MODE_PRIVATE);
@@ -104,7 +108,7 @@ public class EditMyBook extends Fragment {
 
 
         final String query = "UPDATE books  SET book_name = '"+book_name+"',  book_author = '"+book_author+"',  " +
-                "book_link = '"+book_link+"' WHERE user_id = '"+idOfUser+"';";
+                "book_link = '"+book_link+"' WHERE _id = '"+current_id+"';";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request =
                 new StringRequest(
