@@ -37,14 +37,6 @@
             android:id="@+id/imageview_task_image"/>
 
         <Button
-            android:id="@+id/btn_add_image_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Image"
-            android:onClick="addImage"
-            >
-        </Button>
-        <Button
             android:id="@+id/btn_add_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
