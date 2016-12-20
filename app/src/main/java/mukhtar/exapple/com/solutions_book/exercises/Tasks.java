@@ -40,6 +40,7 @@ public class Tasks extends AppCompatActivity {
     SimpleAdapter sa;
     ArrayList<Map<String, String>> dataSA=new ArrayList<>();
     String chapter="";
+    String book_id="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class Tasks extends AppCompatActivity {
         setContentView(R.layout.activity_tasks);
         Intent intent=getIntent();
         chapter=intent.getStringExtra("chapter");
-
+        book_id =intent.getStringExtra("book_id");
         String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
         final String query = "SELECT number,_id FROM tasks WHERE chapter="+chapter+" order by number ";
         RequestQueue queue = Volley.newRequestQueue(getBaseContext());
@@ -107,7 +108,10 @@ public class Tasks extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.add_task:
-
+                Intent intent=new Intent(getBaseContext(),AddTask.class);
+                intent.putExtra("chapter",chapter);
+                intent.putExtra("book_id",book_id);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

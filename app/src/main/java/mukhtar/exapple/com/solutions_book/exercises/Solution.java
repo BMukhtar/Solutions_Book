@@ -1,14 +1,21 @@
 package mukhtar.exapple.com.solutions_book.exercises;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -27,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,18 +50,21 @@ public class Solution extends AppCompatActivity {
     ArrayList<Map<String, String>> data = new ArrayList();
     SimpleAdapter sa;
     ArrayList<Map<String, String>> dataSA=new ArrayList();
+    Image img ;
+    Drawable draw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution);
-
+        int imgint = getResources().getIdentifier("mukhtar.exapple.com.solutions_book.exercises:drawable/b", null, null);
         JSONObject res = null;
+        //draw = getResources().getDrawable(imgint);
         tvGiven=(TextView)findViewById(R.id.given);
         lv=(ListView)findViewById(R.id.lv);
         Intent intent = getIntent();
         task_id=intent.getStringExtra("id");
         final String query = "SELECT data FROM tasks where _id='"+task_id+"'";
-        final String querySolutions = "SELECT user_id,data FROM solutions where task_id='"+task_id+"'";
+        final String querySolutions = "SELECT user_id,data,image FROM solutions where task_id='"+task_id+"'";
         getResponse(query,"task");
         getResponse(querySolutions,"solution");
 
@@ -61,11 +72,28 @@ public class Solution extends AppCompatActivity {
         //tvGiven.setText(given);
 
         sa = new SimpleAdapter(this, dataSA, R.layout.item_solution,
-                new String[]{"data","user_id"}, new int[]{R.id.item_solution_text,R.id.item_solution_login});
+                new String[]{"data","user_id","image"}, new int[]{R.id.item_solution_text,R.id.item_solution_login,R.id.imageViewTask});
         sa.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object o, String s) {
-
+                switch (view.getId()){
+                    case R.id.item_solution_text:
+                        String str=(String)o;
+                        ((TextView)view).setText(str);
+                        break;
+                    case R.id.item_solution_login:
+                        String stl=(String)o;
+                        Log.d("mylogs",(String)o);
+                        ((TextView)view).setText(stl);
+                        break;
+                    case R.id.imageViewTask:
+                        //BitmapDrawable btm = (BitmapDrawable) draw;
+                        //.setImageBitmap(btm.getBitmap());
+                        String l=(String)o;
+                        Bitmap bm=  StringToBitMap(l);
+                        ((ImageView)view).setImageBitmap(bm);
+                        break;
+                }
                 return false;
             }
         });
@@ -107,6 +135,8 @@ public class Solution extends AppCompatActivity {
                     JSONArray information = array.getJSONArray(i);
                     book.put("user_id",information.getString(0));
                     book.put("data",information.getString(1));
+                    book.put("image",information.getString(2));
+                    Log.d("bit",information.getString(2));
                     dataSA.add(book);
                 }}
                 sa.notifyDataSetChanged();
@@ -149,6 +179,11 @@ public class Solution extends AppCompatActivity {
                 };
         request.setTag("POST");
         queue.add(request);
+    }
+    public Bitmap StringToBitMap(String encodedString){
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
     }
 
 }

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,7 +32,8 @@
         <activity android:name=".BooksAppereance.MyBooks" />
         <activity android:name=".exercises.Solution" />
         <activity android:name=".exercises.AddSolution" />
-        <activity android:name=".exercises.AddChapter"></activity>
+        <activity android:name=".exercises.AddChapter" />
+        <activity android:name=".exercises.AddTask"></activity>
     </application>
 
 </manifest>
