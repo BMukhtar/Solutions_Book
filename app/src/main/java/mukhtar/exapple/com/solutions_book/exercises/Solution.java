@@ -36,12 +36,10 @@ import mukhtar.exapple.com.solutions_book.R;
 public class Solution extends AppCompatActivity {
     Menu menu1;
     String chapter,number,given;
-    String task_id;
+    public static String task_id;
     TextView tvGiven;
     ListView lv;
-    ArrayList<Map<String, String>> data = new ArrayList();
-    SimpleAdapter sa;
-    ArrayList<Map<String, String>> dataSA=new ArrayList();
+    ArrayList<HashMap<String, String>> data = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,23 +51,12 @@ public class Solution extends AppCompatActivity {
         Intent intent = getIntent();
         task_id=intent.getStringExtra("id");
         final String query = "SELECT data FROM tasks where _id='"+task_id+"'";
-        final String querySolutions = "SELECT user_id,data FROM solutions where task_id='"+task_id+"'";
-        getResponse(query,"task");
-        getResponse(querySolutions,"solution");
+        getResponse(query);
 
 
         //tvGiven.setText(given);
 
-        sa = new SimpleAdapter(this, dataSA, R.layout.item_solution,
-                new String[]{"data","user_id"}, new int[]{R.id.item_solution_text,R.id.item_solution_login});
-        sa.setViewBinder(new SimpleAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Object o, String s) {
 
-                return false;
-            }
-        });
-        lv.setAdapter(sa);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,37 +77,22 @@ public class Solution extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void changeData(String response,String type){
+    public void changeData(String response){
 
         try {
             JSONObject result = new JSONObject(response);
             if(result.getInt("success")==1){
                 JSONArray array = result.getJSONArray("products");
                 Log.d("mylogs",array.toString());
-                if(type.equals("task")){
-                    tvGiven.setText(array.getString(0));
-                    //Log.d("mylogs",given);
-                }
-                else if(type.equals("solution")){
-                for(int i = 0; i<array.length();i++){
-                    HashMap<String,String> book = new HashMap<>();
-                    JSONArray information = array.getJSONArray(i);
-                    book.put("user_id",information.getString(0));
-                    book.put("data",information.getString(1));
-                    dataSA.add(book);
-                }}
-                sa.notifyDataSetChanged();
+                tvGiven.setText(array.getString(0));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
-    void getResponse(final String query,final String type){
-        String url="";
-        if(type.equals("task")){
-        url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";}
-        else url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
+    void getResponse(final String query){
+        String url= "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request =
                 new StringRequest(
@@ -129,8 +101,8 @@ public class Solution extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("mylogs","Response : "+response);
-                                changeData(response,type);
+                                changeData(response);
+                                makeRequestForSolutions();
                             }
                         },
                         new Response.ErrorListener() {
@@ -149,6 +121,66 @@ public class Solution extends AppCompatActivity {
                 };
         request.setTag("POST");
         queue.add(request);
+    }
+
+    void makeRequestForSolutions(){
+        final String query = "SELECT data,image FROM solutions WHERE task_id='"+task_id+"'";
+        String url= "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request =
+                new StringRequest(
+                        Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                setAdap(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Toast.makeText(getBaseContext(),"Can not load id",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap();
+                        map.put("query", query);
+                        return map;
+                    }
+                };
+        request.setTag("POST");
+        queue.add(request);
+    }
+    void setAdap(String response){
+        try {
+            Log.d("mylogs",response);
+            JSONObject result = new JSONObject(response);
+            if(result.getInt("success")==1){
+                if(!result.isNull("products")){
+                    JSONArray array = result.getJSONArray("products");
+                    Log.d("mylogs","array    " + array.toString());
+                    for(int i = 0;i< array.length();i++){
+                        JSONArray information = array.getJSONArray(i);
+                        HashMap<String,String> map = new HashMap();
+                        map.put("descrip",information.getString(0));
+                        map.put("imageString",information.getString(1));
+                        data.add(map);
+                    }
+                    MyAdapter adapter = new MyAdapter(this,data,R.layout.item_sol);
+                    lv.setAdapter(adapter);
+
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }

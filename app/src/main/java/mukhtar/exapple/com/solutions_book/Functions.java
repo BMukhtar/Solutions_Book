@@ -116,6 +116,7 @@ public class Functions {
 
     void updatePreferences(String response,boolean is_first){
         try {
+
             JSONObject result = new JSONObject(response);
             if(result.getInt("success")==0){
                 Toast.makeText(context,"Change your username the same username exists",Toast.LENGTH_SHORT).show();
@@ -127,6 +128,7 @@ public class Functions {
                 String username = array.getString(3);
                 String password = array.getString(4);
                 String image = array.getString(5);
+                Log.d("mylogs",image);
 
                 SharedPreferences.Editor ed = user_information.edit();
                 ed.putInt("id",id);
