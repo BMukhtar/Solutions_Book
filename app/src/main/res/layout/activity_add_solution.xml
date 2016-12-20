@@ -9,37 +9,49 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="mukhtar.exapple.com.solutions_book.exercises.AddSolution">
     <EditText
+        android:textColor="@color/white"
+        android:padding="10dp"
         android:id="@+id/text_of_solution"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="100dp"
-        android:background="@color/grey"
+        android:layout_height="100dp"
+        android:background="@drawable/forimg"
         >
     </EditText>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxHeight="200dp"
-        android:maxWidth="200dp"
-        android:id="@+id/imageview_solutions_image"/>
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/btn_add_image"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Add Image"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/white"
         android:onClick="addImage"
         >
     </Button>
+
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/btn_add_solution"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Add Solution"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/white"
         android:onClick="addSolution"
         >
 
     </Button>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:maxHeight="200dp"
+        android:maxWidth="200dp"
+        android:id="@+id/imageview_solutions_image"/>
 </LinearLayout>
