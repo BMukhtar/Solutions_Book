@@ -26,6 +26,7 @@
         android:layout_y="10dp" />
 
     <EditText
+
         android:lines="1"
         android:inputType="textPersonName"
         android:id="@+id/nametext"

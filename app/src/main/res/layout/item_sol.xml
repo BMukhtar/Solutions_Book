@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+
 
     <TextView
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:padding="10dp"
         android:text="TextView"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textview_for_item_solution" />
-
-
+        android:id="@+id/textview_for_item_solution"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/imageview_for_item_solution"
+        android:layout_toStartOf="@+id/imageview_for_item_solution"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp" />
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/imageview_for_item_solution"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_alignTop="@+id/textview_for_item_solution"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
     </ImageView>
-</LinearLayout>
+</RelativeLayout>

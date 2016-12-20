@@ -12,11 +12,12 @@
     tools:context="mukhtar.exapple.com.solutions_book.MyAccount"
     >
 
+
     <EditText
+
         android:lines="1"
         android:inputType="textPersonName"
         android:id="@+id/nametext"
-        android:text="some text"
         android:textSize="15dp"
         android:textColor="@color/white"
         android:paddingTop="1dp"
@@ -33,7 +34,6 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="some text"
         android:textSize="15dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
@@ -50,7 +50,6 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:id="@+id/changetext2"
-        android:text="some text"
         android:textColor="@color/white"
         android:textSize="15dp"
         android:paddingTop="1dp"
@@ -58,21 +57,6 @@
         android:layout_below="@+id/surnametext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp" />
-
-    <EditText
-        android:lines="1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:id="@+id/changetext1"
-        android:text="some text"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp"
-        android:layout_below="@+id/changetext2"
-        android:layout_alignLeft="@+id/changetext2"
-        android:layout_alignStart="@+id/changetext2" />
 
     <TextView
         android:text="Name:"
@@ -123,15 +107,33 @@
         android:layout_marginRight="24dp"
         android:layout_marginEnd="24dp" />
 
-    <ImageButton
+    <EditText
+        android:lines="1"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/changetext1"
+
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/changetext2"
+        android:layout_alignLeft="@+id/changetext2"
+        android:layout_alignStart="@+id/changetext2" />
+
+    <ImageView
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:id="@+id/changePas"
         android:background="@drawable/tickimg"
-        android:onClick="changePas"
-        android:layout_alignTop="@+id/changetext2"
-        android:layout_alignLeft="@+id/upload"
-        android:layout_alignStart="@+id/upload" />
+
+        android:layout_alignTop="@+id/changetext1"
+        android:layout_toLeftOf="@+id/upload"
+        android:layout_toStartOf="@+id/upload"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
 
     <Button
         android:text="Save"
@@ -142,25 +144,24 @@
         android:id="@+id/save"
         android:layout_below="@+id/changetext1"
         android:layout_alignLeft="@+id/changetext1"
-        android:layout_alignStart="@+id/changetext1"
-        android:layout_marginTop="120dp" />
-
+        android:layout_alignStart="@+id/changetext1" />
 
     <ImageView
-        android:layout_width="782dp"
-        android:layout_height="181dp"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
         android:id="@+id/imageView"
         android:src="@drawable/addava"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
+
         android:layout_x="10dp"
         android:layout_y="10dp"
         android:layout_above="@+id/upload"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="159dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="38dp" />
 
 
 </RelativeLayout>
