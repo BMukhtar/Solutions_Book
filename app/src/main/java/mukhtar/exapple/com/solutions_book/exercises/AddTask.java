@@ -44,8 +44,6 @@ public class AddTask extends AppCompatActivity {
         numberEditText=(EditText)findViewById(R.id.number_of_task);
         editText=(EditText)findViewById(R.id.text_of_task);
         button= (Button)findViewById(R.id.btn_add_task);
-        image_view_solutions_image = (ImageView) findViewById(R.id.imageview_task_image);
-        //task_id = getIntent().getStringExtra("task_id");
         sharedPref = getSharedPreferences("Username",this.MODE_PRIVATE);
         Intent intent = getIntent();
         book_id=intent.getStringExtra("book_id");
