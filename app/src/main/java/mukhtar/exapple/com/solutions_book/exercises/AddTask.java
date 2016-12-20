@@ -78,7 +78,7 @@ public class AddTask extends AppCompatActivity {
     public void addTask(View v){
         String number=numberEditText.getText().toString();
         String data = editText.getText().toString();
-        String quer="INSERT INTO tasks(book_id,chapter, number,data,user_id) VALUES ("+book_id+","+chapter+","+number+",'"+data+"','"+sharedPref.getString("username","")+"')";
+        String quer="INSERT INTO tasks(book_id,chapter, number,data,user_id) VALUES ("+book_id+","+chapter+","+number+",'"+data+"','"+sharedPref.getInt("id",0)+"')";
         //String query = "INSERT INTO tasks  VALUES (DEFAULT,'"+sharedPref.getString("username","")+"',"+task_id+",'"+data+"','"+encodedImage+"') ";
         Log.d("btn",quer);
         for_query(quer);
