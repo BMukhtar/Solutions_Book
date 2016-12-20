@@ -22,19 +22,18 @@ public class SplashScreenActivity extends Activity {
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        Window window = getWindow();
-        window.setFormat(PixelFormat.RGBA_8888);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // По истечении времени, запускаем главный активити, а Splash Screen закрываем
+
                 Intent mainIntent = new Intent(SplashScreenActivity.this, Login.class);
                 SplashScreenActivity.this.startActivity(mainIntent);
                 SplashScreenActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
-    /** Called when the activity is first created. */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
