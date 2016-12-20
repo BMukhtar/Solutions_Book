@@ -44,7 +44,8 @@
         android:textColorHint="@color/white"
         android:layout_below="@+id/surname"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        />
 
     <EditText
         android:backgroundTint="@color/white"
@@ -60,7 +61,8 @@
         android:textColorHint="@color/white"
         android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="13dp"
+        />
 
     <EditText
         android:backgroundTint="@color/white"
@@ -77,7 +79,8 @@
         android:textColorHint="@color/white"
         android:layout_marginTop="17dp"
         android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
     <EditText
 
@@ -96,7 +99,8 @@
         android:layout_marginTop="15dp"
         android:layout_below="@+id/username"
         android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_alignStart="@+id/username"
+        />
 
     <Button
         android:layout_width="wrap_content"

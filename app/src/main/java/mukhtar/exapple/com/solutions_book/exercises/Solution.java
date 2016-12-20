@@ -46,17 +46,29 @@ public class Solution extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution);
+
         JSONObject res = null;
         tvGiven=(TextView)findViewById(R.id.given);
         lv=(ListView)findViewById(R.id.lv);
         Intent intent = getIntent();
         task_id=intent.getStringExtra("id");
         final String query = "SELECT data FROM tasks where _id='"+task_id+"'";
+        final String querySolutions = "SELECT user_id,data FROM solutions where task_id='"+task_id+"'";
         getResponse(query,"task");
-        tvGiven.setText(given);
+        getResponse(querySolutions,"solution");
+
+
+        //tvGiven.setText(given);
 
         sa = new SimpleAdapter(this, dataSA, R.layout.item_solution,
-                new String[]{"text","login"}, new int[]{R.id.item_solution_text,R.id.item_solution_login});
+                new String[]{"data","user_id"}, new int[]{R.id.item_solution_text,R.id.item_solution_login});
+        sa.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object o, String s) {
+
+                return false;
+            }
+        });
         lv.setAdapter(sa);
     }
     @Override
@@ -86,16 +98,17 @@ public class Solution extends AppCompatActivity {
                 JSONArray array = result.getJSONArray("products");
                 Log.d("mylogs",array.toString());
                 if(type.equals("task")){
-                    given= array.getString(0);
+                    tvGiven.setText(array.getString(0));
+                    //Log.d("mylogs",given);
                 }
-                else{}
-                //for(int i = 0; i<array.length();i++){
-//                    HashMap<String,String> book = new HashMap<>();
-//                    JSONArray information = array.getJSONArray(i);
-//                    book.put("number",chapter+"."+information.getString(0));
-//                    book.put("id",information.getString(1));
-//                    dataSA.add(book);
-                //}
+                else if(type.equals("solution")){
+                for(int i = 0; i<array.length();i++){
+                    HashMap<String,String> book = new HashMap<>();
+                    JSONArray information = array.getJSONArray(i);
+                    book.put("user_id",information.getString(0));
+                    book.put("data",information.getString(1));
+                    dataSA.add(book);
+                }}
                 sa.notifyDataSetChanged();
             }
         } catch (JSONException e) {
@@ -104,7 +117,10 @@ public class Solution extends AppCompatActivity {
 
     }
     void getResponse(final String query,final String type){
-        String url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";
+        String url="";
+        if(type.equals("task")){
+        url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_user_id.php";}
+        else url = "http://telegrambot.kz/android/Bimurat_Mukhtar/solutions_book/for_result.php";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request =
                 new StringRequest(
@@ -134,4 +150,5 @@ public class Solution extends AppCompatActivity {
         request.setTag("POST");
         queue.add(request);
     }
+
 }

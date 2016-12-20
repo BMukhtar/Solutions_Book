@@ -4,25 +4,19 @@
     android:layout_width="match_parent"
     android:background="@color/colorPrimary"
     android:layout_height="match_parent"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
     tools:context="mukhtar.exapple.com.solutions_book.Fragments.ShowMyBooks">
 
 
     <TextView
-        android:textAlignment="center"
-        android:background="@drawable/forimg"
         android:textColor="@color/white"
-        android:padding="7dp"
         android:text="@string/textview_hint_my_books_fragment"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="20sp"
         android:id="@+id/textview_hint_my_books_fragment" />
     <ListView
-        android:background="@drawable/forimg"
         android:textColor="@color/white"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview_my_books">
 

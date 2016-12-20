@@ -81,7 +81,6 @@ public class MyAccount extends AppCompatActivity  {
     Button save;
 
     ImageButton upload;
-    final int DIALOG_EXIT = 1;
     ListView listView = null;
 
     @Override
@@ -114,7 +113,7 @@ public class MyAccount extends AppCompatActivity  {
         String img = sharedPref.getString("image","");
         Bitmap bitmap = StringToBitMap(img);
         ivImage.setImageBitmap(bitmap);
-        Log.d("mylogs",img.toString());
+
 
 
 
@@ -151,14 +150,22 @@ public class MyAccount extends AppCompatActivity  {
                 SharedPreferences.Editor ed = sharedPref.edit();
                 ed.putString("username","");
                 ed.commit();
-
                 Intent intent = new Intent(getBaseContext(),Login.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.delAccount:
+                String query = "DELETE FROM 'users' WHERE username="+sharedPref.getString("username","")+"";
+                for_query(query);
+                SharedPreferences.Editor edit = sharedPref.edit();
+                edit.putString("username","");
+                edit.commit();
+                Intent i = new Intent(getBaseContext(),Login.class);
+                startActivity(i);
+                finish();
                 break;
             case R.id.change_pas:
+
                 etPas1.setVisibility(View.VISIBLE);
                 etPas2.setVisibility(View.VISIBLE);
                 save.setVisibility(View.VISIBLE);
@@ -180,6 +187,23 @@ public class MyAccount extends AppCompatActivity  {
                     break;
 
                 case R.id.save:
+                    if(etPas1.getText().toString()!=sharedPref.getString("password","") && etPas1.getText().toString().equals(etPas2.getText().toString())){
+                        String query = "UPDATE `users` SET `password`='"+etPas1.getText().toString()+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
+                        for_query(query);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("password",etPas1.getText().toString());
+                        editor.commit();
+                    }
+                    String query1 = "UPDATE `users` SET `name`='"+etName.getText().toString()+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
+                    for_query(query1);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("name",etName.getText().toString());
+                    String query2 = "UPDATE `users` SET `name`='"+etName.getText().toString()+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
+                    for_query(query2);
+                    editor.putString("surname",etSurname.getText().toString());
+                    editor.commit();
+
+
                     break;
 
             }
@@ -361,7 +385,7 @@ public class MyAccount extends AppCompatActivity  {
         ed.putString("image",encodedImage);
         ed.commit();
         String query = "UPDATE `users` SET `image`='"+encodedImage+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
-        for_query(query,"image");
+        for_query(query);
 
     }
 
@@ -394,16 +418,17 @@ public class MyAccount extends AppCompatActivity  {
         ivImage.setImageBitmap(bm);
 
         ByteArrayOutputStream boas = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, boas ); //bm is the bitmap object
+        bm.compress(Bitmap.CompressFormat.JPEG,100
+                , boas ); //bm is the bitmap object
         byte[] byteArrayImage = boas .toByteArray();
         final String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
         SharedPreferences.Editor ed = sharedPref.edit();
         ed.putString("image",encodedImage);
         ed.commit();
         String query = "UPDATE `users` SET `image`='"+encodedImage+"' WHERE `username`='"+sharedPref.getString("username","")+"'";
-        for_query(query,"image");
+        for_query(query);
     }
-    public void for_query(final String query, String str){
+    public void for_query(final String query){
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request =
                 new StringRequest(
